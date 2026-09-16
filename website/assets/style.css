@@ -330,7 +330,9 @@ section {
 }
 
 #complete-example,
-#installation {
+#installation,
+#section-terms,
+#section-privacy {
     border-bottom: none;
 }
 
@@ -476,3 +478,127 @@ footer a {
         text-align: center;
     }
 }
+
+/* ================================
+   FOOTER
+================================ */
+
+footer {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    width: 100%;
+
+    margin-top: 50px;
+    padding-top: 25px;
+
+    border-top: 1px solid var(--border);
+
+    color: #555;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 11px;
+}
+
+.footer-main {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 15px;
+}
+
+.footer-main span:first-child {
+    color: var(--green);
+}
+
+.footer-links {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 20px;
+}
+
+.footer-links a {
+    color: #555;
+
+    text-decoration: none;
+
+    transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+    color: var(--green);
+}
+
+/* Banner de Consentimento de Cookies */
+.cookie-banner {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    left: 20px;
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    font-size: 0.9rem;
+    color: #c9d1d9;
+}
+
+.cookie-content p {
+    margin: 0 0 12px 0;
+    line-height: 1.4;
+}
+
+.cookie-content a {
+    color: #58a6ff;
+    text-decoration: underline;
+}
+
+.cookie-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.btn-cookie {
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    border: 1px solid transparent;
+    font-weight: 600;
+}
+
+.btn-accept {
+    background-color: #238636;
+    color: #ffffff;
+    border-color: rgba(240, 246, 252, 0.1);
+}
+
+.btn-accept:hover {
+    background-color: #2ea043;
+}
+
+.btn-reject {
+    background-color: #21262d;
+    color: #c9d1d9;
+    border-color: #30363d;
+}
+
+.btn-reject:hover {
+    background-color: #30363d;
+}
+
