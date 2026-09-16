@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Turtle ORM — SQLite Docs</title>
+        <link rel="stylesheet" href="../assets/style.css" />
+    </head>
+
+    <body>
+        <!-- Header Topbar -->
+        <header>
+            <div class="header-inner">
+                <div class="brand">
+                    <button class="menu-button" id="menuButton" aria-label="Abrir Menu">☰</button>
+                    <div class="brand-icon">🐢</div>
+                    <a href="../index.html">Turtle ORM</a>
+                    <span class="badge">v0.1</span>
+                </div>
+
+                <div class="header-controls">
+                    <select class="driver-select" onchange="location = this.value;">
+                        <option value="../sqlite/" selected>Driver: SQLite 🐢</option>
+                        <option value="../mysql/">Driver: MySQL 🐬 (Em breve)</option>
+                        <option value="../postgres/">Driver: PostgreSQL 🐘 (Em breve)</option>
+                    </select>
+                    <a href="https://github.com/Pauloxc6/turtle" target="_blank" rel="noopener">GitHub ↗</a>
+                </div>
+            </div>
+        </header>
+
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <div class="layout">
+            <!-- Sidebar -->
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-header">
+                    <span>Navegação</span>
+                    <button class="close-sidebar-button" id="closeSidebar">✕</button>
+                </div>
+
+                <div class="search">
+                    <input type="search" id="searchInput" placeholder="Pesquisar..." />
+                    <div id="searchResults" class="search-results"></div>
+                </div>
+
+                <nav id="navigation">
+                    <div class="nav-group">
+                        <span class="sidebar-title">Getting Started</span>
+                        <a href="#overview">Overview</a>
+                        <a href="#quickstart">Quickstart</a>
+                    </div>
+
+                    <div class="nav-group">
+                        <span class="sidebar-title">Models</span>
+                        <a href="#tables">Tables</a>
+                        <a href="#fields">Fields</a>
+                        <a href="#relationships">Relationships</a>
+                    </div>
+
+                    <div class="nav-group">
+                        <span class="sidebar-title">Database</span>
+                        <a href="#insert">Insert</a>
+                        <a href="#update">Update</a>
+                        <a href="#select">Select</a>
+                        <a href="#queries">Queries</a>
+                        <a href="#delete">Delete</a>
+                    </div>
+
+                    <div class="nav-group">
+                        <span class="sidebar-title">Schema</span>
+                        <a href="#schema">Schema</a>
+                        <a href="#indexes">Indexes</a>
+                        <a href="#table-info">Table Info</a>
+                        <a href="#drop">Drop</a>
+                    </div>
+
+                    <div class="nav-group">
+                        <span class="sidebar-title">Reference</span>
+                        <a href="#api">API</a>
+                        <a href="#complete-example">Exemplo Completo</a>
+                    </div>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="content">
+                <section id="overview" class="doc-section">
+                    <div class="hero-label">SQLITE DRIVER</div>
+                    <h1>Turtle ORM — SQLite</h1>
+                    <p class="lead">Documentação do driver SQLite para a biblioteca Turtle ORM em Bash.</p>
+                </section>
+
+                <section id="quickstart" class="doc-section">
+                    <div class="hero-label">GETTING STARTED</div>
+                    <h2>Quickstart</h2>
+                    <p>
+                        A biblioteca Turtle começa com um objeto <strong>Database</strong> e uma ou mais classe <strong>Model</strong>. O objeto <strong>Database</strong>gerencia o banco de dados,
+                        enquanto as funções <strong>Model</strong> são responsáveis pela definição das tabelas e seus campos.
+                    </p>
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>#!/usr/bin/env bash
+
+source "/home/$USER/.local/share/turtle/orm.sh"
+
+db="shop"
+SqliteDatabase "${db}"</code></pre>
+                    </div>
+                </section>
+
+                <section id="tables" class="doc-section">
+                    <div class="hero-label">MODELS</div>
+                    <h2>Criação de tabelas</h2>
+                    <p>
+                        As tabelas são criadas utilizando <strong>SqliteDatabase:create</strong>. <br />
+                        Após a criação, <strong>BaseModel</strong> processa os Models e seus respectivos Fields. <br />
+                        Neste exemplo, será criado um pequeno esquema para uma loja, contendo clientes, produtos e pedidos.
+                    </p>
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>SqliteDatabase:create customers && BaseModel
+SqliteDatabase:create products && BaseModel
+SqliteDatabase:create orders && BaseModel</code></pre>
+                    </div>
+                </section>
+
+                <section id="fields" class="doc-section">
+                    <div class="hero-label">MODELS</div>
+                    <h2>Fields</h2>
+
+                    <p>
+                        Os campos são adicionados às tabelas através das funções <strong>Model:*Filed</strong>. <br />
+                        O primeiro argumento representa a tabela e o segundo representa o nome da coluna. <br />
+                        Os campos também podem receber propriedades adicionais, como <strong>unique</strong> e <strong>notnull</strong>. <br />
+                    </p>
+
+                    <h3>TextField</h3>
+
+                    <p><strong>Model:TextFiled</strong> cria uma coluna do tipo <strong>TEXT</strong>.</p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>Model:TextFiled customers name && BaseModel
+Model:TextFiled customers email unique && BaseModel
+Model:TextFiled customers phone unique notnull && BaseModel</code></pre>
+                    </div>
+
+                    <h3>IntegerField</h3>
+
+                    <p><strong>Model:IntegerFiled</strong> cria uma coluna do tipo <strong>INTEGER</strong>.</p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>Model:IntegerFiled customers age
+Model:IntegerFiled products stock notnull</code></pre>
+                    </div>
+
+                    <h3>RealField</h3>
+
+                    <p><strong>Model:RealFiled</strong> cria uma coluna do tipo <strong>REAL</strong>.</p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>Model:RealFiled products price notnull</code></pre>
+                    </div>
+
+                    <h3>BlobField</h3>
+
+                    <p><strong>Model:BlobFiled</strong> cria uma coluna do tipo <strong>BLOB</strong>.</p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>Model:BlobFiled products image</code></pre>
+                    </div>
+                </section>
+
+                <section id="relationships" class="doc-section">
+                    <div class="hero-label">MODELS</div>
+                    <p>A definição das tabelas pode ser combinada para representar uma estrutura mais próxima de uma aplicação real.</p>
+
+                    <h2>Foreign Keys</h2>
+
+                    <p>
+                        As chaves estrangeiras são definidas através de <strong>Model:ForeignKeyField</strong>. <br />
+                        Por padrão, as colunas <strong>id</strong> são configuradas como <strong>PRIMARY KEY</strong>. <strong>ForeignKeyField</strong> adiciona uma coluna que estabelece <br />
+                        uma referência entre duas tabelas.
+                    </p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>Model:ForeignKeyField orders customers</code></pre>
+                    </div>
+                </section>
+
+                <section id="insert" class="doc-section">
+                    <div class="hero-label">DATABASE</div>
+                    <h2>Insert</h2>
+
+                    <p>
+                        Os registros são inseridos utilizando <strong>SqliteDatabase:insert</strong>. <br />
+                        O primeiro argumento representa a tabela, o segundo representa a coluna e o terceiro representa o valor que será armazenado.
+                    </p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>SqliteDatabase:insert customers name "Paulo Santos" && BaseModel
+SqliteDatabase:insert customers email "paulo@example.com" && BaseModel</code></pre>
+                    </div>
+                </section>
+
+                <section id="update" class="doc-section">
+                    <div class="hero-label">DATABASE</div>
+                    <h2>Update</h2>
+
+                    <p>
+                        Os registros existentes podem ser atualizados utilizando <strong>SqliteDatabase:update</strong>. <br />
+                        O último argumento representa o ID do registro que será atualizado.
+                    </p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>SqliteDatabase:update customers name "Paulo Cezar Santos" 1 && BaseModel</code></pre>
+                    </div>
+                </section>
+
+                <section id="select" class="doc-section">
+                    <div class="hero-label">DATABASE</div>
+                    <h2>Select</h2>
+
+                    <p>Os registros de uma tabela podem ser consultados utilizando <strong>SqliteDatabase:select</strong>.</p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>SqliteDatabase:select customers &lt;json,box,csv&gt;
+SqliteDatabase:select products &lt;json,box,csv&gt;</code></pre>
+                    </div>
+
+                    <p>A saida pode ser modifca através de <strong>&lt;json,box,csv&gt;</strong> colocados no por último.</p>
+                </section>
+
+                <!-- Queries Customizadas com correção de HTML (&lt;) -->
+                <section id="queries" class="doc-section">
+                    <div class="hero-label">DATABASE</div>
+                    <h2>Queries Customizadas</h2>
+
+                    <p>
+                        Consultas SQL personalizadas podem ser executadas utilizando <strong>SqliteDatabase:query</strong>. <br />
+                        A query pode ser passada diretamente para a função através de um Here Document.
+                    </p>
+
+                    <p>Para consultas SQL diretas, utilize a sintaxe Heredoc:</p>
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>SqliteDatabase:query box &lt;&lt;SQL
+SELECT 
+    name, 
+    email 
+FROM 
+    customers 
+WHERE 
+    id = 1;
+SQL</code></pre>
+                    </div>
+                </section>
+
+                <section id="delete" class="doc-section">
+                    <div class="hero-label">DATABASE</div>
+                    <h2>Delete</h2>
+
+                    <p>
+                        Um registro pode ser removido utilizando <strong>SqliteDatabase:delete</strong>. <br />
+                        O segundo argumento representa o ID do registro que será removido.
+                    </p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>SqliteDatabase:delete customers 1</code></pre>
+                    </div>
+                </section>
+
+                <section id="schema" class="doc-section">
+                    <div class="hero-label">SCHEMA</div>
+                    <h2>Schema</h2>
+
+                    <p>O schema de uma tabela pode ser exibido utilizando <strong>SqliteDatabase:check schema</strong>.</p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>SqliteDatabase:check schema customers &lt;json,box,csv&gt;</code></pre>
+                    </div>
+
+                    <p>A saida pode ser modifca através de <strong>&lt;json,box,csv&gt;</strong> colocados no por último.</p>
+                </section>
+
+                <section id="indexes" class="doc-section">
+                    <div class="hero-label">SCHEMA</div>
+                    <h2>Indexes</h2>
+
+                    <p>Os índices associados a uma tabela podem ser consultados através de <strong>SqliteDatabase:check indexs</strong>.</p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>SqliteDatabase:check indexs customers &lt;json,box,csv&gt;
+SqliteDatabase:delete.index customers email &lt;json,box,csv&gt;</code></pre>
+                    </div>
+
+                    <p>A saida pode ser modifca através de <strong>&lt;json,box,csv&gt;</strong> colocados no por último.</p>
+                </section>
+
+                <section id="table-info" class="doc-section">
+                    <div class="hero-label">SCHEMA</div>
+                    <h2>Table Info</h2>
+
+                    <p>As informações estruturais das colunas podem ser consultadas através de <strong>SqliteDatabase:check table-info</strong>.</p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>SqliteDatabase:check table-info customers &lt;json,box,csv&gt;</code></pre>
+                    </div>
+
+                    <p>A saida pode ser modifca através de <strong>&lt;json,box,csv&gt;</strong> colocados no por último.</p>
+                </section>
+
+                <section id="drop" class="doc-section">
+                    <div class="hero-label">SCHEMA</div>
+                    <h2>Drop</h2>
+
+                    <p>Uma tabela pode ser removida utilizando <strong>SqliteDatabase:drop</strong>.</p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>SqliteDatabase:drop "customers"</code></pre>
+                    </div>
+                </section>
+
+                <section id="api" class="doc-section">
+                    <div class="hero-label">REFERENCE</div>
+                    <h2>API Reference</h2>
+
+                    <p></p>
+
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Módulo</th>
+                                    <th>Função</th>
+                                    <th>Descrição</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>SqliteDatabase</td>
+                                    <td>create, insert, update, select, query, delete, readall, drop</td>
+                                    <td>Gera comandos SQL e operações na base SQLite.</td>
+                                </tr>
+                                <tr>
+                                    <td>Model</td>
+                                    <td>TextFiled, IntegerFiled, RealFiled, BlobFiled, ForeignKeyField</td>
+                                    <td>Declara tipos de dados e relacionamentos.</td>
+                                </tr>
+                                <tr>
+                                    <td>BaseModel</td>
+                                    <td>BaseModel</td>
+                                    <td>Aplica as alterações declaradas no schema.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section id="complete-example" class="doc-section">
+                    <div class="hero-label">EXAMPLE</div>
+                    <h2>Exemplo Completo</h2>
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>SqliteDatabase:create customers && BaseModel
+Model:TextFiled customers name notnull && BaseModel
+Model:TextFiled customers email unique notnull && BaseModel
+Model:TextFiled customers phone unique && BaseModel
+
+SqliteDatabase:create products && BaseModel
+Model:TextFiled products name notnull && BaseModel
+Model:RealFiled products price notnull && BaseModel
+Model:IntegerFiled products stock notnull && BaseModel
+Model:BlobFiled products image && BaseModel
+
+SqliteDatabase:create orders && BaseModel
+Model:IntegerFiled orders quantity notnull && BaseModel
+Model:RealFiled orders total notnull && BaseModel</code></pre>
+                    </div>
+                </section>
+
+                <footer>
+                    <div>Turtle ORM — Documentação</div>
+                    <div>
+                        Desenvolvido por
+                        <a href="https://github.com/Pauloxc6" target="_blank" rel="noopener">Pauloxc6</a>
+                    </div>
+                </footer>
+            </main>
+        </div>
+
+        <script src="../assets/script.js"></script>
+    </body>
+</html>
