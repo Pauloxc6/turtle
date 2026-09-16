@@ -1,0 +1,4 @@
+User-Agent: *
+Allow: /
+
+Sitemap: https://pauloxc6.github.io/turtle/website/public/sitemap.xml
