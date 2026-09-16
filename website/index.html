@@ -1,191 +1,172 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Turtle ORM — Documentação Oficial</title>
-    <meta
-      name="description"
-      content="Um ORM simples, rápido e modular para Bash com suporte a SQLite, MySQL e PostgreSQL."
-    />
-    <link rel="stylesheet" href="assets/style.css" />
-    <style>
-      /* Estilos específicos para a Landing Page */
-      .hero-center {
-        text-align: center;
-        padding: 60px 0 40px;
-      }
-      .driver-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
-        margin-top: 30px;
-      }
-      .driver-card {
-        background: var(--bg-secondary);
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        padding: 24px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        transition: border-color 0.2s;
-      }
-      .driver-card:hover {
-        border-color: var(--accent);
-      }
-      .driver-card h3 {
-        margin: 0 0 8px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-      .driver-card p {
-        font-size: 14px;
-        margin-bottom: 20px;
-      }
-      .full-width-content {
-        margin-left: 0 !important;
-        width: 100% !important;
-        max-width: 1000px !important;
-        margin: 0 auto;
-      }
-    </style>
-  </head>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <body>
-    <!-- Header Topbar -->
-    <header>
-      <div class="header-inner">
-        <div class="brand">
-          <div class="brand-icon">🐢</div>
-          <a href="index.html">Turtle ORM</a>
-          <span class="badge">v0.1</span>
-        </div>
+        <title>Turtle ORM — Documentação Oficial</title>
 
-        <div class="header-controls">
-          <select
-            class="driver-select"
-            onchange="if(this.value) location = this.value;"
-          >
-            <option value="" selected disabled>Escolha um Driver</option>
-            <option value="sqlite/">SQLite 🐢 (v0.1)</option>
-            <option value="mysql/" disabled>MySQL 🐬 (Em breve)</option>
-            <option value="postgres/" disabled>PostgreSQL 🐘 (Em breve)</option>
-          </select>
-          <a
-            href="https://github.com/Pauloxc6/turtle"
-            target="_blank"
-            rel="noopener"
-            >GitHub ↗</a
-          >
-        </div>
-      </div>
-    </header>
+        <meta name="description" content="Um ORM simples, rápido e modular para Bash com suporte a SQLite, MySQL e PostgreSQL." />
 
-    <div class="layout">
-      <!-- Main Content sem Sidebar para a Landing Page -->
-      <main class="content full-width-content">
-        <section class="hero-center">
-          <div class="hero-label">BASH ORM FRAMEWORK</div>
-          <h1>Turtle ORM</h1>
-          <p class="lead">
-            Manipule bancos de dados em scripts Shell com sintaxe limpa,
-            declaração de schemas, e queries customizadas baseadas em funções.
-          </p>
-          <div style="display: flex; gap: 12px; justify-content: center">
-            <a href="sqlite/" class="button primary">Documentação SQLite 🐢</a>
-            <a
-              href="https://github.com/Pauloxc6/turtle"
-              target="_blank"
-              rel="noopener"
-              class="button"
-              >Ver no GitHub ↗</a
-            >
-          </div>
-        </section>
+        <link rel="stylesheet" href="./assets/style.css" />
 
-        <!-- Seleção de Drivers -->
-        <section id="drivers">
-          <h2>Drivers & Banco de Dados</h2>
-          <p>
-            Escolha a documentação específica de acordo com o banco de dados do
-            seu projeto:
-          </p>
+        <link rel="icon" type="image/svg+xml" href="./public/favicon.svg" />
 
-          <div class="driver-grid">
-            <!-- SQLite -->
-            <div class="driver-card">
-              <div>
-                <h3>
-                  SQLite 🐢
-                  <span
-                    class="badge"
-                    style="background: rgba(46, 160, 67, 0.15); color: #3fb950"
-                    >Disponível</span
-                  >
-                </h3>
-                <p>
-                  Driver completo e nativo utilizando o binário
-                  <code>sqlite3</code> em Shell.
-                </p>
-              </div>
-              <a
-                href="sqlite/"
-                class="button primary"
-                style="text-align: center; justify-content: center"
-                >Acessar Docs</a
-              >
+        <!-- SEO Principal -->
+        <meta name="description" content="Turtle ORM — Um ORM simples, leve e modular em Bash com suporte a SQLite, MySQL e PostgreSQL." />
+        <meta name="keywords" content="Turtle ORM, Bash ORM, Shell Script ORM, SQLite Bash, Bash Database, Linux Shell ORM, Paulo Santos" />
+        <meta name="author" content="Paulo Santos" />
+        <meta name="robots" content="index, follow" />
+        <meta name="language" content="pt-BR" />
+
+        <!-- Canonical -->
+        <link rel="canonical" href="https://pauloxc6.github.io/turtle/" />
+
+        <!-- Open Graph (Facebook, WhatsApp, LinkedIn, Discord) -->
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Turtle ORM — Documentação Oficial" />
+        <meta property="og:description" content="Manipule bancos de dados em scripts Shell com sintaxe limpa, declaração de schemas e queries customizadas." />
+        <meta property="og:url" content="https://pauloxc6.github.io/turtle/" />
+        <meta property="og:site_name" content="Turtle ORM" />
+
+        <!-- Twitter / X -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="Turtle ORM — Documentação Oficial" />
+        <meta name="twitter:description" content="ORM simples, leve e modular desenvolvido em Bash para bancos de dados relacionais." />
+
+        <!-- Tema do Navegador e Mobile -->
+        <meta name="theme-color" content="#0d1117" />
+
+        <style>
+            /* Estilos específicos para a Landing Page */
+            .hero-center {
+                text-align: center;
+                padding: 60px 0 40px;
+            }
+            .driver-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+                margin-top: 30px;
+            }
+            .driver-card {
+                background: var(--bg-secondary);
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                padding: 24px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                transition: border-color 0.2s;
+            }
+            .driver-card:hover {
+                border-color: var(--accent);
+            }
+            .driver-card h3 {
+                margin: 0 0 8px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .driver-card p {
+                font-size: 14px;
+                margin-bottom: 20px;
+            }
+            .full-width-content {
+                margin-left: 0 !important;
+                width: 100% !important;
+                max-width: 1000px !important;
+                margin: 0 auto;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- Header Topbar -->
+        <header>
+            <div class="header-inner">
+                <div class="brand">
+                    <div class="brand-icon">🐢</div>
+                    <a href="index.html">Turtle ORM</a>
+                    <span class="badge">v0.1</span>
+                </div>
+
+                <div class="header-controls">
+                    <select class="driver-select" onchange="if(this.value) location = this.value;">
+                        <option value="" selected disabled>Escolha um Driver</option>
+                        <option value="sqlite/">SQLite 🐢 (v0.1)</option>
+                        <option value="mysql/" disabled>MySQL 🐬 (Em breve)</option>
+                        <option value="postgres/" disabled>PostgreSQL 🐘 (Em breve)</option>
+                    </select>
+                    <a href="https://github.com/Pauloxc6/turtle" target="_blank" rel="noopener">GitHub ↗</a>
+                </div>
             </div>
+        </header>
 
-            <!-- MySQL -->
-            <div class="driver-card" style="opacity: 0.6">
-              <div>
-                <h3>MySQL 🐬 <span class="badge">Em breve</span></h3>
-                <p>
-                  Suporte planejado via cliente <code>mysql</code> nativo em
-                  scripts Bash.
-                </p>
-              </div>
-              <button
-                class="button"
-                disabled
-                style="width: 100%; cursor: not-allowed"
-              >
-                Em Desenvolvimento
-              </button>
-            </div>
+        <div class="layout">
+            <!-- Main Content sem Sidebar para a Landing Page -->
+            <main class="content full-width-content">
+                <section class="hero-center">
+                    <div class="hero-label">BASH ORM FRAMEWORK</div>
+                    <h1>Turtle ORM</h1>
+                    <p class="lead">Manipule bancos de dados em scripts Shell com sintaxe limpa, declaração de schemas, e queries customizadas baseadas em funções.</p>
+                    <div style="display: flex; gap: 12px; justify-content: center">
+                        <a href="sqlite/" class="button primary">Documentação SQLite 🐢</a>
+                        <a href="https://github.com/Pauloxc6/turtle" target="_blank" rel="noopener" class="button">Ver no GitHub ↗</a>
+                    </div>
+                </section>
 
-            <!-- PostgreSQL -->
-            <div class="driver-card" style="opacity: 0.6">
-              <div>
-                <h3>PostgreSQL 🐘 <span class="badge">Em breve</span></h3>
-                <p>
-                  Suporte planejado com integração ao utilitário
-                  <code>psql</code>.
-                </p>
-              </div>
-              <button
-                class="button"
-                disabled
-                style="width: 100%; cursor: not-allowed"
-              >
-                Em Desenvolvimento
-              </button>
-            </div>
-          </div>
-        </section>
+                <!-- Seleção de Drivers -->
+                <section id="drivers">
+                    <h2>Drivers & Banco de Dados</h2>
+                    <p>Escolha a documentação específica de acordo com o banco de dados do seu projeto:</p>
 
-        <!-- Instalação Rápida -->
-        <section id="installation">
-          <h2>Instalação Rápida</h2>
-          <p>
-            Clone o repositório e inclua o arquivo principal no seu script
-            Shell:
-          </p>
-          <div class="code-wrapper">
-            <button class="copy-button">Copiar</button>
-            <pre><code># Clone o repositório é execute o install.sh
+                    <div class="driver-grid">
+                        <!-- SQLite -->
+                        <div class="driver-card">
+                            <div>
+                                <h3>
+                                    SQLite 🐢
+                                    <span class="badge" style="background: rgba(46, 160, 67, 0.15); color: #3fb950">Disponível</span>
+                                </h3>
+                                <p>
+                                    Driver completo e nativo utilizando o binário
+                                    <code>sqlite3</code> em Shell.
+                                </p>
+                            </div>
+                            <a href="sqlite/" class="button primary" style="text-align: center; justify-content: center">Acessar Docs</a>
+                        </div>
+
+                        <!-- MySQL -->
+                        <div class="driver-card" style="opacity: 0.6">
+                            <div>
+                                <h3>MySQL 🐬 <span class="badge">Em breve</span></h3>
+                                <p>Suporte planejado via cliente <code>mysql</code> nativo em scripts Bash.</p>
+                            </div>
+                            <button class="button" disabled style="width: 100%; cursor: not-allowed">Em Desenvolvimento</button>
+                        </div>
+
+                        <!-- PostgreSQL -->
+                        <div class="driver-card" style="opacity: 0.6">
+                            <div>
+                                <h3>PostgreSQL 🐘 <span class="badge">Em breve</span></h3>
+                                <p>
+                                    Suporte planejado com integração ao utilitário
+                                    <code>psql</code>.
+                                </p>
+                            </div>
+                            <button class="button" disabled style="width: 100%; cursor: not-allowed">Em Desenvolvimento</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Instalação Rápida -->
+                <section id="installation">
+                    <h2>Instalação Rápida</h2>
+                    <p>Clone o repositório e inclua o arquivo principal no seu script Shell:</p>
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code># Clone o repositório é execute o install.sh
 user@db:~$ git clone https://github.com/Pauloxc6/turtle.git turtle
 user@db:~$ cd turtle
 user@db:~/turtle$ bash install.sh
@@ -203,21 +184,19 @@ By: @Pauloxc6
 
 # Importa a biblioteca no seu script Bash
 source "/home/$USER/.local/share/turtle/orm.sh"</code></pre>
-          </div>
-        </section>
+                    </div>
+                </section>
 
-        <footer>
-          <div>Turtle ORM — Documentação</div>
-          <div>
-            Desenvolvido por
-            <a href="https://github.com/Pauloxc6" target="_blank" rel="noopener"
-              >Pauloxc6</a
-            >
-          </div>
-        </footer>
-      </main>
-    </div>
+                <footer>
+                    <div>Turtle ORM — Documentação</div>
+                    <div>
+                        Desenvolvido por
+                        <a href="https://github.com/Pauloxc6" target="_blank" rel="noopener">Pauloxc6</a>
+                    </div>
+                </footer>
+            </main>
+        </div>
 
-    <script src="assets/script.js"></script>
-  </body>
+        <script src="assets/script.js"></script>
+    </body>
 </html>
