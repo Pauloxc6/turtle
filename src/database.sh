@@ -263,3 +263,22 @@ function SqliteDatabase:select(){
     fi
 
 }
+
+function SqliteDatabase:get(){
+
+    local table="$1"
+    local where="${2:-1}"
+    local type="${3:-json}"
+    local cmd="SELECT * FROM ${table} WHERE ${where};"
+
+    if [[ -z "$table" ]]; then
+        echo "[!] Argumento vazio. Adicione a tabela para seleção!"
+        return 1
+    fi
+
+    if ! sqlite3 -cmd ".headers on" -cmd ".mode ${type}" "${database_file}" "${cmd}";then
+        return 1
+    fi
+
+}
+
