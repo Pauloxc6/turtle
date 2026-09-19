@@ -283,6 +283,27 @@ SqliteDatabase:select products &lt;json,box,csv&gt;</code></pre>
                     <p>A saida pode ser modifca através de <strong>&lt;json,box,csv&gt;</strong> colocados no por último.</p>
                 </section>
 
+                <section id="get" class="doc-section">
+                    <div class="hero-label">DATABASE</div>
+                    <h2>Get</h2>
+
+                    <p>
+                        Os registros de um tabela podem ser consultados através pelo id, utilizando:
+                        <strong>SqliteDatabase:get</strong>
+                    </p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>SqliteDatabase:get customers 1 &lt;json,box,csv&gt;</code></pre>
+                    </div>
+
+                    <p>A saida pode ser modifca através de <strong>&lt;json,box,csv&gt;</strong> colocados no por último.</p>
+
+                    <ul class="obs">
+                        <li><strong>Obs:</strong> Por padrão o id é setado como 1 em caso de não expecificado.</li>
+                    </ul>
+                </section>
+
                 <!-- Queries Customizadas com correção de HTML (&lt;) -->
                 <section id="queries" class="doc-section">
                     <div class="hero-label">DATABASE</div>
@@ -411,6 +432,17 @@ SqliteDatabase:delete.index customers email &lt;json,box,csv&gt;</code></pre>
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                </section>
+
+                <section id="debug" class="doc-section">
+                    <div class="hero-label">Debug</div>
+                    <h2>Ativar o Debug</h2>
+
+                    <p>É possível ativar o modo debug na importação do framework, utilizando o argumento <strong>--debug</strong>:</p>
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>source "/home/$USER/.local/share/turtle/orm.sh" --debug</code></pre>
                     </div>
                 </section>
 
