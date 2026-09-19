@@ -329,10 +329,10 @@ section {
     border-bottom: 1px solid var(--border);
 }
 
-#complete-example,
 #installation,
 #section-terms,
-#section-privacy {
+#section-privacy,
+#debug {
     border-bottom: none;
 }
 
@@ -602,7 +602,9 @@ footer {
     background-color: #30363d;
 }
 
-/* Listas */
+/* ======================== 
+    Listas 
+===========================*/
 .obs {
     margin-bottom: 16px;
     color: var(--text-secondary);
