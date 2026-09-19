@@ -93,6 +93,7 @@
                         <span class="sidebar-title">Getting Started</span>
                         <a href="#overview">Overview</a>
                         <a href="#quickstart">Quickstart</a>
+                        <a href="#debug">Debug</a>
                     </div>
 
                     <div class="nav-group">
@@ -435,43 +436,43 @@ SqliteDatabase:delete.index customers email &lt;json,box,csv&gt;</code></pre>
                     </div>
                 </section>
 
-                <section id="debug" class="doc-section">
-                    <div class="hero-label">Debug</div>
-                    <h2>Ativar o Debug</h2>
-
-                    <p>É possível ativar o modo debug na importação do framework, utilizando o argumento <strong>--debug</strong>:</p>
-                    <div class="code-wrapper">
-                        <button class="copy-button">Copiar</button>
-                        <pre><code>source "/home/$USER/.local/share/turtle/orm.sh" --debug</code></pre>
-                    </div>
-                </section>
-
+                
                 <section id="complete-example" class="doc-section">
                     <div class="hero-label">EXAMPLE</div>
                     <h2>Exemplo Completo</h2>
                     <div class="code-wrapper">
                         <button class="copy-button">Copiar</button>
                         <pre><code>SqliteDatabase:create customers && BaseModel
-Model:TextFiled customers name notnull && BaseModel
-Model:TextFiled customers email unique notnull && BaseModel
-Model:TextFiled customers phone unique && BaseModel
-
-SqliteDatabase:create products && BaseModel
-Model:TextFiled products name notnull && BaseModel
-Model:RealFiled products price notnull && BaseModel
-Model:IntegerFiled products stock notnull && BaseModel
-Model:BlobFiled products image && BaseModel
-
-SqliteDatabase:create orders && BaseModel
-Model:IntegerFiled orders quantity notnull && BaseModel
-Model:RealFiled orders total notnull && BaseModel</code></pre>
-                    </div>
-                </section>
-
-                <!-- Banner de Consentimento de Cookies -->
-                <div id="cookie-banner" class="cookie-banner" style="display: none">
-                    <div class="cookie-content">
-                        <p>
+                            Model:TextFiled customers name notnull && BaseModel
+                            Model:TextFiled customers email unique notnull && BaseModel
+                            Model:TextFiled customers phone unique && BaseModel
+                            
+                            SqliteDatabase:create products && BaseModel
+                            Model:TextFiled products name notnull && BaseModel
+                            Model:RealFiled products price notnull && BaseModel
+                            Model:IntegerFiled products stock notnull && BaseModel
+                            Model:BlobFiled products image && BaseModel
+                            
+                            SqliteDatabase:create orders && BaseModel
+                            Model:IntegerFiled orders quantity notnull && BaseModel
+                            Model:RealFiled orders total notnull && BaseModel</code></pre>
+                        </div>
+                    </section>
+                    
+                    <section id="debug" class="doc-section">
+                        <div class="hero-label">Debug</div>
+                        <h2>Ativar o Debug</h2>
+    
+                        <p>É possível ativar o modo debug na importação do framework, utilizando o argumento <strong>--debug</strong>:</p>
+                        <div class="code-wrapper">
+                            <button class="copy-button">Copiar</button>
+                            <pre><code>source "/home/$USER/.local/share/turtle/orm.sh" --debug</code></pre>
+                        </div>
+                    </section>
+                    <!-- Banner de Consentimento de Cookies -->
+                    <div id="cookie-banner" class="cookie-banner" style="display: none">
+                        <div class="cookie-content">
+                            <p>
                             Utilizamos cookies de análise (Google Analytics) para melhorar a documentação. Você pode aceitar ou recusar o rastreamento.
                             <a href="./privacidade.html">Saiba mais</a>.
                         </p>
