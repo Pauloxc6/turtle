@@ -31,7 +31,7 @@ function __version_banner(){
 |_________/     
 |_|_| |_|_|
 
-Turtle ORM | V: v1.0
+Turtle ORM | V: v1.2.1
 By: @Pauloxc6
 EOF
 
