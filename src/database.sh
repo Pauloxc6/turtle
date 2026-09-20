@@ -271,8 +271,13 @@ function SqliteDatabase:get(){
     local type="${3:-json}"
     local cmd="SELECT * FROM ${table} WHERE ${where};"
 
-    if [[ -z "$table" ]]; then
-        echo "[!] Argumento vazio. Adicione a tabela para seleção!"
+    if [[ -z "$table" || -z "$where" ]]; then
+        echo "[!] Argumento vazio. Adicione a tabela e coluna para seleção!"
+        return 1
+    fi
+
+    if [[ ! "$table" =~ ^[a-zA-Z_][a-zA-Z0-9_]*$  || ! "$where" =~ ^[0-9]*$ ]]; then
+        echo "[!] Nome de tabela, filtro inválido"
         return 1
     fi
 
