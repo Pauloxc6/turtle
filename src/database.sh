@@ -187,6 +187,8 @@ function SqliteDatabase:insert() {
 
 }
 
+# * Função de atualização
+
 function SqliteDatabase:update() {
 
     local table="$1"
@@ -224,6 +226,8 @@ function SqliteDatabase:update() {
 
 }
 
+# * Função de deletar um resgistro
+
 function SqliteDatabase:delete() {
 
     local table="$1"
@@ -247,6 +251,8 @@ function SqliteDatabase:delete() {
 
 }
 
+# * Função de seleção de tudo
+
 function SqliteDatabase:select(){
 
     local table="$1"
@@ -263,6 +269,8 @@ function SqliteDatabase:select(){
     fi
 
 }
+
+# * Função de seleção pelo id
 
 function SqliteDatabase:get(){
 

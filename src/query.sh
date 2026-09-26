@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# * Função de busca personalizada
+
 function SqliteDatabase:query(){
     
     local query=$(cat)
