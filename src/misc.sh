@@ -31,7 +31,7 @@ function __version_banner(){
 |_________/     
 |_|_| |_|_|
 
-Turtle ORM | V: v1.3
+Turtle ORM | V: v2.0
 By: @Pauloxc6
 EOF
 
@@ -76,3 +76,35 @@ function debug(){
 
     trap cleanup EXIT
 }
+
+#=================================
+# * Datetime
+#=================================
+
+function datetime(){
+
+    local type="$1"
+
+    case "${type}" in
+        24) date +"%F %T"       ;;
+        12) date +"%F %I:%M:%S" ;;
+    esac 
+}
+
+#=================================
+# * Convert
+#=================================
+
+function xmltojson(){
+    xq-go --json --no-color | jq -M '[
+        .resultset.row 
+        | if type == "array" then . else [.] end 
+        | .[] 
+        | .field 
+        | if type == "array" then . else [.] end 
+        | map({(.["@name"]): (.["#text"] // null)}) 
+        | add
+    ]'
+}
+
+

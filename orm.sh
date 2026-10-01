@@ -5,7 +5,7 @@
 #================================
 
 # shellcheck disable=SC2155
-readonly rootdir="$(cd -- "$(dirname -- "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)"
+rootdir="$(cd -- "$(dirname -- "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)"
 
 declare -a libs=(
     "${rootdir}/src/misc.sh"
