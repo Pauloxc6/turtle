@@ -65,7 +65,7 @@
                 <div class="header-controls">
                     <select class="driver-select" onchange="location = this.value;">
                         <option value="../sqlite/" selected>Driver: SQLite 🐢</option>
-                        <option value="../mysql/">Driver: MySQL 🐬 (Em breve)</option>
+                        <option value="../mysql/">Driver: MySQL 🐬</option>
                         <option value="../postgres/">Driver: PostgreSQL 🐘 (Em breve)</option>
                     </select>
                     <a href="https://github.com/Pauloxc6/turtle" target="_blank" rel="noopener">GitHub ↗</a>
@@ -124,6 +124,7 @@
                         <span class="sidebar-title">Reference</span>
                         <a href="#api">API</a>
                         <a href="#complete-example">Exemplo Completo</a>
+                        <a href="#dependencies">Dependências</a>
                     </div>
                 </nav>
             </aside>
@@ -466,6 +467,16 @@ Model:BlobFiled products image && BaseModel
 SqliteDatabase:create orders && BaseModel
 Model:IntegerFiled orders quantity notnull && BaseModel
 Model:RealFiled orders total notnull && BaseModel</code></pre>
+                    </div>
+                </section>
+
+                <section id="dependencies" class="doc-section">
+                    <div class="hero-label">DEPENDENCIES</div>
+                    <h2>Depedências</h2>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>sqlite3 ->  A command line interface for SQLite version 3.43.0</code></pre>
                     </div>
                 </section>
 
