@@ -107,14 +107,14 @@
                 <div class="brand">
                     <div class="brand-icon">🐢</div>
                     <a href="index.html">Turtle ORM</a>
-                    <span class="badge">v0.1</span>
+                    <span class="badge">v2.0</span>
                 </div>
 
                 <div class="header-controls">
                     <select class="driver-select" onchange="if(this.value) location = this.value;">
                         <option value="" selected disabled>Escolha um Driver</option>
-                        <option value="sqlite/">SQLite 🐢 (v0.1)</option>
-                        <option value="mysql/" disabled>MySQL 🐬 (Em breve)</option>
+                        <option value="sqlite/">SQLite 🐢 (v2.0)</option>
+                        <option value="mysql/">MySQL 🐬 (v2.0)</option>
                         <option value="postgres/" disabled>PostgreSQL 🐘 (Em breve)</option>
                     </select>
                     <a href="https://github.com/Pauloxc6/turtle" target="_blank" rel="noopener">GitHub ↗</a>
@@ -157,12 +157,15 @@
                         </div>
 
                         <!-- MySQL -->
-                        <div class="driver-card" style="opacity: 0.6">
+                        <div class="driver-card">
                             <div>
-                                <h3>MySQL 🐬 <span class="badge">Em breve</span></h3>
+                                <h3>
+                                    MySQL 🐬
+                                    <span class="badge" style="background: rgba(46, 160, 67, 0.15); color: #3fb950">Disponível</span>
+                                </h3>
                                 <p>Suporte planejado via cliente <code>mysql</code> nativo em scripts Bash.</p>
                             </div>
-                            <button class="button" disabled style="width: 100%; cursor: not-allowed">Em Desenvolvimento</button>
+                            <a href="mysql/" class="button primary" style="text-align: center; justify-content: center">Acessar Docs</a>
                         </div>
 
                         <!-- PostgreSQL -->
@@ -202,7 +205,7 @@ Turtle ORM | V: v1.0
 By: @Pauloxc6
 
 # Importa a biblioteca no seu script Bash
-source "/home/$USER/.local/share/turtle/orm.sh"</code></pre>
+source "orm"</code></pre>
                     </div>
                 </section>
 

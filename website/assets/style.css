@@ -332,7 +332,7 @@ section {
 #installation,
 #section-terms,
 #section-privacy,
-#debug {
+#complete-example {
     border-bottom: none;
 }
 
@@ -611,16 +611,16 @@ footer {
 }
 
 ul {
-  list-style: none;
-  padding: 0;
+    list-style: none;
+    padding: 0;
 }
 
 li {
-  margin-bottom: 8px;
-  font-family: sans-serif;
-  font-size: smaller;
+    margin-bottom: 8px;
+    font-family: sans-serif;
+    font-size: smaller;
 }
 
 strong {
-  color: #0066cc;
+    color: #0066cc;
 }

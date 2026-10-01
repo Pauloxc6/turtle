@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Turtle ORM — SQLite Docs</title>
+        <title>Turtle ORM — MySQL Docs</title>
         <link rel="stylesheet" href="../assets/style.css" />
 
         <link rel="icon" type="image/svg+xml" href="../public/favicon.svg" />
@@ -59,13 +59,13 @@
                     <button class="menu-button" id="menuButton" aria-label="Abrir Menu">☰</button>
                     <div class="brand-icon">🐢</div>
                     <a href="../index.html">Turtle ORM</a>
-                    <span class="badge">v0.1</span>
+                    <span class="badge">v2.0</span>
                 </div>
 
                 <div class="header-controls">
                     <select class="driver-select" onchange="location = this.value;">
-                        <option value="../sqlite/" selected>Driver: SQLite 🐢</option>
-                        <option value="../mysql/">Driver: MySQL 🐬 (Em breve)</option>
+                        <option value="../sqlite/">Driver: SQLite 🐢</option>
+                        <option value="../mysql/" selected>Driver: MySQL 🐬</option>
                         <option value="../postgres/">Driver: PostgreSQL 🐘 (Em breve)</option>
                     </select>
                     <a href="https://github.com/Pauloxc6/turtle" target="_blank" rel="noopener">GitHub ↗</a>
@@ -131,37 +131,53 @@
             <!-- Main Content -->
             <main class="content">
                 <section id="overview" class="doc-section">
-                    <div class="hero-label">SQLITE DRIVER</div>
-                    <h1>Turtle ORM — SQLite</h1>
-                    <p class="lead">Documentação do driver SQLite para a biblioteca Turtle ORM em Bash.</p>
+                    <div class="hero-label">MySQL DRIVER</div>
+                    <h1>Turtle ORM — MySQL</h1>
+                    <p class="lead">Documentação do driver MySQL para a biblioteca Turtle ORM em Bash.</p>
                 </section>
 
                 <section id="quickstart" class="doc-section">
                     <div class="hero-label">GETTING STARTED</div>
                     <h2>Quickstart</h2>
                     <p>
-                        A biblioteca Turtle começa com um objeto <strong>Database</strong> e uma ou mais classe <strong>Model</strong>. O objeto <strong>Database</strong>gerencia o banco de dados,
-                        enquanto as funções <strong>Model</strong> são responsáveis pela definição das tabelas e seus campos.
+                        A biblioteca Turtle começa com um objeto <strong>Database</strong>, um <strong>Usuário</strong> e uma ou mais classe <strong>Model</strong>. O objeto
+                        <strong>Database</strong> gerencia o banco de dados, enquanto as funções <strong>Model</strong> são responsáveis pela definição das tabelas e seus campos.
                     </p>
                     <div class="code-wrapper">
                         <button class="copy-button">Copiar</button>
                         <pre><code>#!/usr/bin/env bash
 
-source "/home/$USER/.local/share/turtle/orm.sh"
+source "orm"
+source "dotenv"
 
 db="shop"
-SqliteDatabase "${db}"</code></pre>
+
+ruser=$(dotenv:get "MYSQL_ROOT_USER")
+rpass=$(dotenv:get "MYSQL_ROOT_PASS")
+
+user=$(dotenv:get "MYSQL_USER")
+pass=$(dotenv:get "MYSQL_PASS")
+
+MysqlDatabase "${db}" "${user}" "${pass}" "${ruser}" "${rpass}"
+</code></pre>
                     </div>
+
+                    <ul class="obs">
+                        <li>
+                            <strong>Obs:</strong> Por motivos de segurança, é recomendável a utilização de um arquivo dotenv para armazenar as credenciais. Como nota pessoal, recomendo a utilização de
+                            outra biblioteca <strong><a href="https://github.com/Pauloxc6/dotenv">Dotenv</a>.</strong>
+                        </li>
+                    </ul>
                 </section>
 
-                <section id="debug" class="doc-section">
+                <section id="debug">
                     <div class="hero-label">Debug</div>
                     <h2>Ativar o Debug</h2>
 
                     <p>É possível ativar o modo debug na importação do framework, utilizando o argumento <strong>--debug</strong>:</p>
                     <div class="code-wrapper">
                         <button class="copy-button">Copiar</button>
-                        <pre><code>source "/home/$USER/.local/share/turtle/orm.sh" --debug</code></pre>
+                        <pre><code>source "orm" --debug</code></pre>
                     </div>
                 </section>
 
@@ -169,15 +185,15 @@ SqliteDatabase "${db}"</code></pre>
                     <div class="hero-label">MODELS</div>
                     <h2>Criação de tabelas</h2>
                     <p>
-                        As tabelas são criadas utilizando <strong>SqliteDatabase:create</strong>. <br />
+                        As tabelas são criadas utilizando <strong>MysqlDatabase:create</strong>. <br />
                         Após a criação, <strong>BaseModel</strong> processa os Models e seus respectivos Fields. <br />
                         Neste exemplo, será criado um pequeno esquema para uma loja, contendo clientes, produtos e pedidos.
                     </p>
                     <div class="code-wrapper">
                         <button class="copy-button">Copiar</button>
-                        <pre><code>SqliteDatabase:create customers && BaseModel
-SqliteDatabase:create products && BaseModel
-SqliteDatabase:create orders && BaseModel</code></pre>
+                        <pre><code>MysqlDatabase:create customers && BaseModel
+MysqlDatabase:create products && BaseModel
+MysqlDatabase:create orders && BaseModel</code></pre>
                     </div>
                 </section>
 
@@ -208,17 +224,17 @@ Model:TextFiled customers phone unique notnull && BaseModel</code></pre>
 
                     <div class="code-wrapper">
                         <button class="copy-button">Copiar</button>
-                        <pre><code>Model:IntegerFiled customers age
-Model:IntegerFiled products stock notnull</code></pre>
+                        <pre><code>Model:IntegerFiled customers age && BaseModel
+Model:IntegerFiled products stock notnull && BaseModel</code></pre>
                     </div>
 
-                    <h3>RealField</h3>
+                    <h3>FloatField</h3>
 
-                    <p><strong>Model:RealFiled</strong> cria uma coluna do tipo <strong>REAL</strong>.</p>
+                    <p><strong>Model:FloatField</strong> cria uma coluna do tipo <strong>FLOAT</strong>.</p>
 
                     <div class="code-wrapper">
                         <button class="copy-button">Copiar</button>
-                        <pre><code>Model:RealFiled products price notnull</code></pre>
+                        <pre><code>Model:FloatField products price notnull && BaseModel</code></pre>
                     </div>
 
                     <h3>BlobField</h3>
@@ -227,8 +243,34 @@ Model:IntegerFiled products stock notnull</code></pre>
 
                     <div class="code-wrapper">
                         <button class="copy-button">Copiar</button>
-                        <pre><code>Model:BlobFiled products image</code></pre>
+                        <pre><code>Model:BlobFiled products image && BaseModel</code></pre>
                     </div>
+
+                    <h3>BooleanField</h3>
+
+                    <p><strong>Model:BooleanFiled</strong> cria uma coluna do tipo <strong>BOOLEAN</strong>.</p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>Model:BooleanFiled products productActive 1 && BaseModel</code></pre>
+                    </div>
+
+                    <ul class="obs">
+                        <li><strong>Obs:</strong> Para difinir um dado tipo boolean utilizamos o <strong>0</strong> para <strong>FALSE</strong> e <strong>1</strong> para <strong>TRUE</strong>.</li>
+                    </ul>
+
+                    <h3>DatetimeField</h3>
+
+                    <p><strong>Model:DatetimeFiled</strong> cria uma coluna do tipo <strong>DATETIME</strong>.</p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>Model:DatetimeFiled products timestamp 'format=24' && BaseModel</code></pre>
+                    </div>
+
+                    <ul class="obs">
+                        <li><strong>Obs:</strong> A saida da data pode ser altarada para 24 horas ou 12 horas, especificando com <strong>format=24</strong> ou <strong>format=12</strong>.</li>
+                    </ul>
                 </section>
 
                 <section id="relationships" class="doc-section">
@@ -254,14 +296,14 @@ Model:IntegerFiled products stock notnull</code></pre>
                     <h2>Insert</h2>
 
                     <p>
-                        Os registros são inseridos utilizando <strong>SqliteDatabase:insert</strong>. <br />
+                        Os registros são inseridos utilizando <strong>MysqlDatabase:insert</strong>. <br />
                         O primeiro argumento representa a tabela, o segundo representa a coluna e o terceiro representa o valor que será armazenado.
                     </p>
 
                     <div class="code-wrapper">
                         <button class="copy-button">Copiar</button>
-                        <pre><code>SqliteDatabase:insert customers name "Paulo Santos"
-SqliteDatabase:insert customers email "paulo@example.com"</code></pre>
+                        <pre><code>MysqlDatabase:insert customers name "Paulo Santos"
+MysqlDatabase:insert customers email "paulo@example.com"</code></pre>
                     </div>
                 </section>
 
@@ -270,13 +312,13 @@ SqliteDatabase:insert customers email "paulo@example.com"</code></pre>
                     <h2>Update</h2>
 
                     <p>
-                        Os registros existentes podem ser atualizados utilizando <strong>SqliteDatabase:update</strong>. <br />
+                        Os registros existentes podem ser atualizados utilizando <strong>MysqlDatabase:update</strong>. <br />
                         O último argumento representa o ID do registro que será atualizado.
                     </p>
 
                     <div class="code-wrapper">
                         <button class="copy-button">Copiar</button>
-                        <pre><code>SqliteDatabase:update customers name "Paulo Cezar Santos" 1</code></pre>
+                        <pre><code>MysqlDatabase:update customers name "Paulo Cezar Santos" 1</code></pre>
                     </div>
                 </section>
 
@@ -284,15 +326,15 @@ SqliteDatabase:insert customers email "paulo@example.com"</code></pre>
                     <div class="hero-label">DATABASE</div>
                     <h2>Select</h2>
 
-                    <p>Os registros de uma tabela podem ser consultados utilizando <strong>SqliteDatabase:select</strong>.</p>
+                    <p>Os registros de uma tabela podem ser consultados utilizando <strong>MysqlDatabase:select</strong>.</p>
 
                     <div class="code-wrapper">
                         <button class="copy-button">Copiar</button>
-                        <pre><code>SqliteDatabase:select customers &lt;json,box,csv&gt;
-SqliteDatabase:select products &lt;json,box,csv&gt;</code></pre>
+                        <pre><code>MysqlDatabase:select customers &lt;json&gt;
+MysqlDatabase:select products &lt;json&gt;</code></pre>
                     </div>
 
-                    <p>A saida pode ser modifca através de <strong>&lt;json,box,csv&gt;</strong> colocados no por último.</p>
+                    <p>A saida pode ser modifca através de <strong>&lt;json&gt;</strong> colocado no por último.</p>
                 </section>
 
                 <section id="get" class="doc-section">
@@ -301,15 +343,15 @@ SqliteDatabase:select products &lt;json,box,csv&gt;</code></pre>
 
                     <p>
                         Os registros de um tabela podem ser consultados através pelo id, utilizando:
-                        <strong>SqliteDatabase:get</strong>
+                        <strong>MysqlDatabase:get</strong>
                     </p>
 
                     <div class="code-wrapper">
                         <button class="copy-button">Copiar</button>
-                        <pre><code>SqliteDatabase:get customers 1 &lt;json,box,csv&gt;</code></pre>
+                        <pre><code>MysqlDatabase:get customers 1 &lt;json&gt;</code></pre>
                     </div>
 
-                    <p>A saida pode ser modifca através de <strong>&lt;json,box,csv&gt;</strong> colocados no por último.</p>
+                    <p>A saida pode ser modifca através de <strong>&lt;json&gt;</strong> colocados no por último.</p>
 
                     <ul class="obs">
                         <li><strong>Obs:</strong> Por padrão o id é setado como 1 em caso de não expecificado.</li>
@@ -322,14 +364,14 @@ SqliteDatabase:select products &lt;json,box,csv&gt;</code></pre>
                     <h2>Queries Customizadas</h2>
 
                     <p>
-                        Consultas SQL personalizadas podem ser executadas utilizando <strong>SqliteDatabase:query</strong>. <br />
+                        Consultas SQL personalizadas podem ser executadas utilizando <strong>MysqlDatabase:query</strong>. <br />
                         A query pode ser passada diretamente para a função através de um Here Document.
                     </p>
 
                     <p>Para consultas SQL diretas, utilize a sintaxe Heredoc:</p>
                     <div class="code-wrapper">
                         <button class="copy-button">Copiar</button>
-                        <pre><code>SqliteDatabase:query box &lt;&lt;SQL
+                        <pre><code>MysqlDatabase:query &lt;&lt;SQL
 SELECT 
     name, 
     email 
@@ -339,6 +381,10 @@ WHERE
     id = 1;
 SQL</code></pre>
                     </div>
+
+                    <ul class="obs">
+                        <li><strong>Obs:</strong> A saida por padrão das queries customizadas é em formatada para <strong>&lt;json&gt;</strong>.</li>
+                    </ul>
                 </section>
 
                 <section id="delete" class="doc-section">
@@ -346,13 +392,13 @@ SQL</code></pre>
                     <h2>Delete</h2>
 
                     <p>
-                        Um registro pode ser removido utilizando <strong>SqliteDatabase:delete</strong>. <br />
+                        Um registro pode ser removido utilizando <strong>MysqlDatabase:delete</strong>. <br />
                         O segundo argumento representa o ID do registro que será removido.
                     </p>
 
                     <div class="code-wrapper">
                         <button class="copy-button">Copiar</button>
-                        <pre><code>SqliteDatabase:delete customers 1</code></pre>
+                        <pre><code>MysqlDatabase:delete customers 1</code></pre>
                     </div>
                 </section>
 
@@ -360,54 +406,90 @@ SQL</code></pre>
                     <div class="hero-label">SCHEMA</div>
                     <h2>Schema</h2>
 
-                    <p>O schema de uma tabela pode ser exibido utilizando <strong>SqliteDatabase:check schema</strong>.</p>
+                    <p>O schema de uma tabela pode ser exibido utilizando <strong>MysqlDatabase:check schema</strong>.</p>
 
                     <div class="code-wrapper">
                         <button class="copy-button">Copiar</button>
-                        <pre><code>SqliteDatabase:check schema customers &lt;json,box,csv&gt;</code></pre>
+                        <pre><code>MysqlDatabase:check schema customers</code></pre>
                     </div>
 
-                    <p>A saida pode ser modifca através de <strong>&lt;json,box,csv&gt;</strong> colocados no por último.</p>
+                    <ul class="obs">
+                        <li><strong>Obs:</strong> A saida por padrão do check schema é em formatada para <strong>&lt;json&gt;</strong>.</li>
+                    </ul>
                 </section>
 
                 <section id="indexes" class="doc-section">
                     <div class="hero-label">SCHEMA</div>
                     <h2>Indexes</h2>
 
-                    <p>Os índices associados a uma tabela podem ser consultados através de <strong>SqliteDatabase:check indexs</strong>.</p>
+                    <p>Os índices associados a uma tabela podem ser consultados através de <strong>MysqlDatabase:check indexs</strong>.</p>
 
                     <div class="code-wrapper">
                         <button class="copy-button">Copiar</button>
-                        <pre><code>SqliteDatabase:check indexs customers &lt;json,box,csv&gt;
-SqliteDatabase:delete.index customers email &lt;json,box,csv&gt;</code></pre>
+                        <pre><code>MysqlDatabase:check indexs customers
+MysqlDatabase:delete.index customers email</code></pre>
                     </div>
 
-                    <p>A saida pode ser modifca através de <strong>&lt;json,box,csv&gt;</strong> colocados no por último.</p>
+                    <ul class="obs">
+                        <li><strong>Obs:</strong> A saida por padrão do check indexs é em formatada para <strong>&lt;json&gt;</strong>.</li>
+                    </ul>
                 </section>
 
                 <section id="table-info" class="doc-section">
                     <div class="hero-label">SCHEMA</div>
                     <h2>Table Info</h2>
 
-                    <p>As informações estruturais das colunas podem ser consultadas através de <strong>SqliteDatabase:check table-info</strong>.</p>
+                    <p>As informações estruturais das colunas podem ser consultadas através de <strong>MysqlDatabase:check table-info</strong>.</p>
 
                     <div class="code-wrapper">
                         <button class="copy-button">Copiar</button>
-                        <pre><code>SqliteDatabase:check table-info customers &lt;json,box,csv&gt;</code></pre>
+                        <pre><code>MysqlDatabase:check table-info customers</code></pre>
                     </div>
 
-                    <p>A saida pode ser modifca através de <strong>&lt;json,box,csv&gt;</strong> colocados no por último.</p>
+                    <ul class="obs">
+                        <li><strong>Obs:</strong> A saída por padrão do check table-info é em formatada para <strong>&lt;json&gt;</strong>.</li>
+                    </ul>
+                </section>
+
+                <section id="table-info" class="doc-section">
+                    <div class="hero-label">SCHEMA</div>
+                    <h2>Table Errors</h2>
+
+                    <p>As informações de erros das tabelas podem ser consultadas através de <strong>MysqlDatabase:check table-errors</strong>.</p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>MysqlDatabase:check table-errors customers</code></pre>
+                    </div>
+
+                    <ul class="obs">
+                        <li><strong>Obs:</strong> A saída por padrão do check table-info é em formatada para <strong>&ltjson&gt</strong>.</li>
+                    </ul>
                 </section>
 
                 <section id="drop" class="doc-section">
                     <div class="hero-label">SCHEMA</div>
                     <h2>Drop</h2>
 
-                    <p>Uma tabela pode ser removida utilizando <strong>SqliteDatabase:drop</strong>.</p>
+                    <p>Uma tabela pode ser removida utilizando <strong>MysqlDatabase:drop</strong>.</p>
 
                     <div class="code-wrapper">
                         <button class="copy-button">Copiar</button>
-                        <pre><code>SqliteDatabase:drop "customers"</code></pre>
+                        <pre><code>MysqlDatabase:drop "customers"</code></pre>
+                    </div>
+
+                    <p>Um banco de dados pode ser removido utilizando <strong>MysqlDatabase:drop.database</strong>.</p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>MysqlDatabase:drop.database "${db}"</code></pre>
+                    </div>
+
+                    <p>Um usuário pode ser removido utilizando <strong>MysqlDatabase:drop.user</strong>.</p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>MysqlDatabase:drop.user "${user}"</code></pre>
                     </div>
                 </section>
 
@@ -428,13 +510,13 @@ SqliteDatabase:delete.index customers email &lt;json,box,csv&gt;</code></pre>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>SqliteDatabase</td>
+                                    <td>MysqlDatabase</td>
                                     <td>create, insert, update, select, query, delete, readall, drop</td>
                                     <td>Gera comandos SQL e operações na base SQLite.</td>
                                 </tr>
                                 <tr>
                                     <td>Model</td>
-                                    <td>TextFiled, IntegerFiled, RealFiled, BlobFiled, ForeignKeyField</td>
+                                    <td>TextFiled, IntegerFiled, FloatField, BlobFiled, BooleanField, DatetimeField, ForeignKeyField</td>
                                     <td>Declara tipos de dados e relacionamentos.</td>
                                 </tr>
                                 <tr>
@@ -452,20 +534,23 @@ SqliteDatabase:delete.index customers email &lt;json,box,csv&gt;</code></pre>
                     <h2>Exemplo Completo</h2>
                     <div class="code-wrapper">
                         <button class="copy-button">Copiar</button>
-                        <pre><code>SqliteDatabase:create customers && BaseModel
+                        <pre><code>MysqlDatabase:create customers && BaseModel
 Model:TextFiled customers name notnull && BaseModel
 Model:TextFiled customers email unique notnull && BaseModel
 Model:TextFiled customers phone unique && BaseModel
+Model:DatetimeField timestamp format=24
 
-SqliteDatabase:create products && BaseModel
+MysqlDatabase:create products && BaseModel
 Model:TextFiled products name notnull && BaseModel
-Model:RealFiled products price notnull && BaseModel
+Model:FloatField products price notnull && BaseModel
 Model:IntegerFiled products stock notnull && BaseModel
 Model:BlobFiled products image && BaseModel
+Model:DatetimeField timestamp format=24 && BaseModel
 
-SqliteDatabase:create orders && BaseModel
+MysqlDatabase:create orders && BaseModel
 Model:IntegerFiled orders quantity notnull && BaseModel
-Model:RealFiled orders total notnull && BaseModel</code></pre>
+Model:FloatField orders total notnull && BaseModel
+Model:DatetimeField timestamp format=24 && BaseModel</code></pre>
                     </div>
                 </section>
 
