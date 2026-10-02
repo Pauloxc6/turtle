@@ -1,0 +1,16 @@
+services:
+  db:
+    image: mysql:8.3.0
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_DATABASE: teste
+      MYSQL_USER: db
+      MYSQL_PASSWORD: db123
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./mysql-config:/etc/mysql/conf.d
+volumes:
+  db_data:
