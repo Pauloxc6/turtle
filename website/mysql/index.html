@@ -164,9 +164,14 @@ MysqlDatabase "${db}" "${user}" "${pass}" "${ruser}" "${rpass}"
                     </div>
 
                     <ul class="obs">
+                        <strong>Obs:</strong>
                         <li>
-                            <strong>Obs:</strong> Por motivos de segurança, é recomendável a utilização de um arquivo dotenv para armazenar as credenciais. Como nota pessoal, recomendo a utilização de
-                            outra biblioteca <strong><a href="https://github.com/Pauloxc6/dotenv">Dotenv</a>.</strong>
+                            Por motivos de segurança, é recomendável a utilização de um arquivo dotenv para armazenar as credenciais. Como nota pessoal, recomendo a utilização de outra biblioteca
+                            <strong><a href="https://github.com/Pauloxc6/dotenv">Dotenv</a>.</strong>
+                        </li>
+                        <li>
+                            Por padrão, o usuário é configurado para acessar a partir de qualquer endereço <strong>('seuuser'@'%')</strong>. Opcionalmente, você pode especificar o endereço IP/host de
+                            conexão no último parâmetro. Caso não seja informado, o padrão utilizado será <strong>127.0.0.1</strong>.
                         </li>
                     </ul>
                 </section>
