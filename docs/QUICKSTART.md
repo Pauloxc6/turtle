@@ -43,7 +43,7 @@ SqliteDatabase:create orders && BaseModel
 
 ## Definição de Campos
 
-Os campos são adicionados às tabelas através das funções `Model:*Filed`.
+Os campos são adicionados às tabelas através das funções `Model:*Field`.
 
 O primeiro argumento representa a tabela e o segundo representa o nome da coluna.
 
@@ -51,69 +51,69 @@ Os campos também podem receber propriedades adicionais, como `unique` e `notnul
 
 ### Campo TEXT
 
-`Model:TextFiled` cria uma coluna do tipo `TEXT`.
+`Model:TextField` cria uma coluna do tipo `TEXT`.
 
 ```bash
 # * Cria uma coluna do tipo TEXT
-# * Sintaxe: Model:TextFiled <tablename> <columnname>
-Model:TextFiled customers name && BaseModel
+# * Sintaxe: Model:TextField <tablename> <columnname>
+Model:TextField customers name && BaseModel
 
 # * Cria uma coluna TEXT com restrição UNIQUE
-Model:TextFiled customers email unique && BaseModel
+Model:TextField customers email unique && BaseModel
 
 # * Cria uma coluna TEXT com restrição NOT NULL
-Model:TextFiled products name notnull && BaseModel
+Model:TextField products name notnull && BaseModel
 
 # * É possível utilizar múltiplas propriedades no mesmo campo
-Model:TextFiled customers phone unique notnull && BaseModel
+Model:TextField customers phone unique notnull && BaseModel
 ```
 
 As propriedades podem ser combinadas conforme a necessidade:
 
 ```bash
 # * UNIQUE
-Model:TextFiled customers email unique
+Model:TextField customers email unique
 
 # * NOT NULL
-Model:TextFiled customers name notnull
+Model:TextField customers name notnull
 
 # * UNIQUE + NOT NULL
-Model:TextFiled customers phone unique notnull
+Model:TextField customers phone unique notnull
 ```
 
 > Para mais informações sobre a definição de campos, consulte [Fields](./fields.md).
 
 ### Campo INTEGER
 
-`Model:IntegerFiled` cria uma coluna do tipo `INTEGER`.
+`Model:IntegerField` cria uma coluna do tipo `INTEGER`.
 
 ```bash
 # * Cria uma coluna do tipo INTEGER
-# * Sintaxe: Model:IntegerFiled <tablename> <columnname>
-Model:IntegerFiled customers age
+# * Sintaxe: Model:IntegerField <tablename> <columnname>
+Model:IntegerField customers age
 
 # * Cria uma coluna INTEGER com restrição NOT NULL
-Model:IntegerFiled products stock notnull
+Model:IntegerField products stock notnull
 ```
 
 ### Campo REAL
 
-`Model:RealFiled` cria uma coluna do tipo `REAL`.
+`Model:RealField` cria uma coluna do tipo `REAL`.
 
 ```bash
 # * Cria uma coluna do tipo REAL
-# * Sintaxe: Model:RealFiled <tablename> <columnname>
-Model:RealFiled products price notnull
+# * Sintaxe: Model:RealField <tablename> <columnname>
+Model:RealField products price notnull
 ```
 
 ### Campo BLOB
 
-`Model:BlobFiled` cria uma coluna do tipo `BLOB`.
+`Model:BlobField` cria uma coluna do tipo `BLOB`.
 
 ```bash
 # * Cria uma coluna do tipo BLOB
-# * Sintaxe: Model:BlobFiled <tablename> <columnname>
-Model:BlobFiled products image
+# * Sintaxe: Model:BlobField <tablename> <columnname>
+Model:BlobField products image
 ```
 
 ## Exemplo Completo de Model
@@ -124,23 +124,23 @@ A definição das tabelas pode ser combinada para representar uma estrutura mais
 # * Tabela de clientes
 SqliteDatabase:create customers && BaseModel
 
-Model:TextFiled customers name notnull && BaseModel
-Model:TextFiled customers email unique notnull && BaseModel
-Model:TextFiled customers phone unique && BaseModel
+Model:TextField customers name notnull && BaseModel
+Model:TextField customers email unique notnull && BaseModel
+Model:TextField customers phone unique && BaseModel
 
 # * Tabela de produtos
 SqliteDatabase:create products && BaseModel
 
-Model:TextFiled products name notnull && BaseModel
-Model:RealFiled products price notnull && BaseModel
-Model:IntegerFiled products stock notnull && BaseModel
-Model:BlobFiled products image && BaseModel
+Model:TextField products name notnull && BaseModel
+Model:RealField products price notnull && BaseModel
+Model:IntegerField products stock notnull && BaseModel
+Model:BlobField products image && BaseModel
 
 # * Tabela de pedidos
 SqliteDatabase:create orders && BaseModel
 
-Model:IntegerFiled orders quantity notnull && BaseModel
-Model:RealFiled orders total notnull && BaseModel
+Model:IntegerField orders quantity notnull && BaseModel
+Model:RealField orders total notnull && BaseModel
 ```
 
 ## Chave Estrangeira

@@ -80,15 +80,15 @@ SqliteDatabase "${db}"
 SqliteDatabase:create customers && BaseModel
 
 # * Define os campos de customers
-Model:TextFiled customers name notnull && BaseModel
-Model:TextFiled customers email unique notnull && BaseModel
+Model:TextField customers name notnull && BaseModel
+Model:TextField customers email unique notnull && BaseModel
 
 # * Cria a tabela orders
 SqliteDatabase:create orders && BaseModel
 
 # * Define os campos de orders
-Model:IntegerFiled orders quantity notnull && BaseModel
-Model:RealFiled orders total notnull && BaseModel
+Model:IntegerField orders quantity notnull && BaseModel
+Model:RealField orders total notnull && BaseModel
 
 # * Cria a relação entre orders e customers
 Model:ForeignKeyField orders customers
@@ -229,23 +229,23 @@ SqliteDatabase "${db}"
 SqliteDatabase:create customers && BaseModel
 
 # * Define os campos de customers
-Model:TextFiled customers name notnull && BaseModel
-Model:TextFiled customers email unique notnull && BaseModel
+Model:TextField customers name notnull && BaseModel
+Model:TextField customers email unique notnull && BaseModel
 
 # * Cria a tabela products
 SqliteDatabase:create products && BaseModel
 
 # * Define os campos de products
-Model:TextFiled products name notnull && BaseModel
-Model:RealFiled products price notnull && BaseModel
-Model:IntegerFiled products stock notnull && BaseModel
+Model:TextField products name notnull && BaseModel
+Model:RealField products price notnull && BaseModel
+Model:IntegerField products stock notnull && BaseModel
 
 # * Cria a tabela orders
 SqliteDatabase:create orders && BaseModel
 
 # * Define os campos de orders
-Model:IntegerFiled orders quantity notnull && BaseModel
-Model:RealFiled orders total notnull && BaseModel
+Model:IntegerField orders quantity notnull && BaseModel
+Model:RealField orders total notnull && BaseModel
 
 # * Relaciona orders com customers
 Model:ForeignKeyField orders customers

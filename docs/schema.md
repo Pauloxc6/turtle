@@ -162,9 +162,9 @@ SqliteDatabase "${db}"
 SqliteDatabase:create users && BaseModel
 
 # * Adiciona os campos
-Model:TextFiled users username unique
-Model:TextFiled users email notnull
-Model:IntegerFiled users age
+Model:TextField users username unique
+Model:TextField users email notnull
+Model:IntegerField users age
 
 # * Consulta o schema da tabela
 SqliteDatabase:check schema users

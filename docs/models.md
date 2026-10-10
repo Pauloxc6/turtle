@@ -64,7 +64,7 @@ e processado através de `BaseModel`.
 SqliteDatabase:create customers && BaseModel
 
 # * Adiciona um campo ao Model
-Model:TextFiled customers name notnull && BaseModel
+Model:TextField customers name notnull && BaseModel
 ```
 
 O fluxo utilizado pelo Turtle é:
@@ -106,9 +106,9 @@ funções `Model:*Field`.
 SqliteDatabase:create customers && BaseModel
 
 # * Define os campos do Model
-Model:TextFiled customers name notnull && BaseModel
-Model:TextFiled customers email unique notnull && BaseModel
-Model:IntegerFiled customers age && BaseModel
+Model:TextField customers name notnull && BaseModel
+Model:TextField customers email unique notnull && BaseModel
+Model:IntegerField customers age && BaseModel
 ```
 
 O resultado é um Model equivalente à seguinte estrutura:
@@ -163,23 +163,23 @@ SqliteDatabase "${db}"
 SqliteDatabase:create customers && BaseModel
 
 # * Define os campos de customers
-Model:TextFiled customers name notnull && BaseModel
-Model:TextFiled customers email unique notnull && BaseModel
+Model:TextField customers name notnull && BaseModel
+Model:TextField customers email unique notnull && BaseModel
 
 # * Cria o Model products
 SqliteDatabase:create products && BaseModel
 
 # * Define os campos de products
-Model:TextFiled products name notnull && BaseModel
-Model:RealFiled products price notnull && BaseModel
-Model:IntegerFiled products stock notnull && BaseModel
+Model:TextField products name notnull && BaseModel
+Model:RealField products price notnull && BaseModel
+Model:IntegerField products stock notnull && BaseModel
 
 # * Cria o Model orders
 SqliteDatabase:create orders && BaseModel
 
 # * Define os campos de orders
-Model:IntegerFiled orders quantity notnull && BaseModel
-Model:RealFiled orders total notnull && BaseModel
+Model:IntegerField orders quantity notnull && BaseModel
+Model:RealField orders total notnull && BaseModel
 ```
 
 Após a execução, o banco possuirá três Models:

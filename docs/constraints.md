@@ -25,7 +25,7 @@ Por exemplo:
 ```bash
 # * Cria uma coluna TEXT que não aceita valores NULL
 # * e não permite valores duplicados
-Model:TextFiled customers email unique notnull && BaseModel
+Model:TextField customers email unique notnull && BaseModel
 ```
 
 ## UNIQUE
@@ -35,7 +35,7 @@ não sejam duplicados.
 
 ```bash
 # * Cria uma coluna TEXT com valores únicos
-Model:TextFiled customers email unique && BaseModel
+Model:TextField customers email unique && BaseModel
 ```
 
 Nesse exemplo, cada cliente deve possuir um valor diferente na coluna
@@ -61,7 +61,7 @@ A Constraint `notnull` impede que uma coluna receba o valor `NULL`.
 
 ```bash
 # * Cria uma coluna TEXT que não aceita NULL
-Model:TextFiled customers name notnull && BaseModel
+Model:TextField customers name notnull && BaseModel
 ```
 
 Essa Constraint é útil para campos que são obrigatórios.
@@ -70,7 +70,7 @@ Essa Constraint é útil para campos que são obrigatórios.
 
 ```bash
 # * O campo name é obrigatório
-Model:TextFiled customers name notnull && BaseModel
+Model:TextField customers name notnull && BaseModel
 ```
 
 ## UNIQUE + NOT NULL
@@ -79,7 +79,7 @@ As Constraints podem ser combinadas.
 
 ```bash
 # * O email é obrigatório e não pode ser duplicado
-Model:TextFiled customers email unique notnull && BaseModel
+Model:TextField customers email unique notnull && BaseModel
 ```
 
 Nesse caso, a coluna possui duas regras:
@@ -184,13 +184,13 @@ As Constraints podem ser combinadas quando fizer sentido para o campo.
 
 ```bash
 # * O nome é obrigatório
-Model:TextFiled customers name notnull && BaseModel
+Model:TextField customers name notnull && BaseModel
 
 # * O email é obrigatório e único
-Model:TextFiled customers email unique notnull && BaseModel
+Model:TextField customers email unique notnull && BaseModel
 
 # * O estoque é obrigatório
-Model:IntegerFiled products stock notnull && BaseModel
+Model:IntegerField products stock notnull && BaseModel
 ```
 
 ## Exemplo Completo
@@ -213,22 +213,22 @@ SqliteDatabase "${db}"
 SqliteDatabase:create customers && BaseModel
 
 # * Define um campo obrigatório
-Model:TextFiled customers name notnull && BaseModel
+Model:TextField customers name notnull && BaseModel
 
 # * Define um campo obrigatório e único
-Model:TextFiled customers email unique notnull && BaseModel
+Model:TextField customers email unique notnull && BaseModel
 
 # * Cria a tabela products
 SqliteDatabase:create products && BaseModel
 
 # * Define um nome obrigatório
-Model:TextFiled products name notnull && BaseModel
+Model:TextField products name notnull && BaseModel
 
 # * Define um preço obrigatório
-Model:RealFiled products price notnull && BaseModel
+Model:RealField products price notnull && BaseModel
 
 # * Define um estoque obrigatório
-Model:IntegerFiled products stock notnull && BaseModel
+Model:IntegerField products stock notnull && BaseModel
 
 # * Cria a relação entre orders e customers
 SqliteDatabase:create orders && BaseModel

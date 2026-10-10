@@ -386,8 +386,8 @@ SqliteDatabase "${db}"
 SqliteDatabase:create customers && BaseModel
 
 # * Define os campos
-Model:TextFiled customers name notnull && BaseModel
-Model:TextFiled customers email unique notnull && BaseModel
+Model:TextField customers name notnull && BaseModel
+Model:TextField customers email unique notnull && BaseModel
 
 # * Insere registros utilizando SQL
 SqliteDatabase:query box <<SQL
