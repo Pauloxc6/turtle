@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Turtle ORM — PostgreSQL Docs</title>
+        <link rel="stylesheet" href="../assets/style.css" />
+
+        <link rel="icon" type="image/svg+xml" href="../public/favicon.svg" />
+
+        <!-- SEO Principal -->
+        <meta name="description" content="Turtle ORM — Um ORM simples, leve e modular em Bash com suporte a SQLite, PostgreSQL e PostgreSQL." />
+        <meta name="keywords" content="Turtle ORM, Bash ORM, Shell Script ORM, SQLite Bash, Bash Database, Linux Shell ORM, Paulo Santos" />
+        <meta name="author" content="Paulo Santos" />
+        <meta name="robots" content="index, follow" />
+        <meta name="language" content="pt-BR" />
+
+        <!-- Canonical -->
+        <link rel="canonical" href="https://pauloxc6.github.io/turtle/" />
+
+        <!-- Open Graph (Facebook, WhatsApp, LinkedIn, Discord) -->
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Turtle ORM — Documentação Oficial" />
+        <meta property="og:description" content="Manipule bancos de dados em scripts Shell com sintaxe limpa, declaração de schemas e queries customizadas." />
+        <meta property="og:url" content="https://pauloxc6.github.io/turtle/" />
+        <meta property="og:site_name" content="Turtle ORM" />
+
+        <!-- Twitter / X -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="Turtle ORM — Documentação Oficial" />
+        <meta name="twitter:description" content="ORM simples, leve e modular desenvolvido em Bash para bancos de dados relacionais." />
+
+        <!-- Tema do Navegador e Mobile -->
+        <meta name="theme-color" content="#0d1117" />
+
+        <script src="https://www.google.com/recaptcha/enterprise.js?render=6LeG4b4tAAAAADa9qIogFwvrLjFD9aWpEhgsRH6J"></script>
+
+        <!-- Google Tag Manager -->
+        <script>
+            (function (w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+                var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s),
+                    dl = l != "dataLayer" ? "&l=" + l : "";
+                j.async = true;
+                j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, "script", "dataLayer", "GTM-M9ZHT7QP");
+        </script>
+        <!-- End Google Tag Manager -->
+    </head>
+
+    <body>
+        <!-- Header Topbar -->
+        <header>
+            <div class="header-inner">
+                <div class="brand">
+                    <button class="menu-button" id="menuButton" aria-label="Abrir Menu">☰</button>
+                    <div class="brand-icon">🐢</div>
+                    <a href="../index.html">Turtle ORM</a>
+                    <span class="badge">v3.0</span>
+                </div>
+
+                <div class="header-controls">
+                    <select class="driver-select" onchange="location = this.value;">
+                        <option value="" selected disabled>Escolha um Driver</option>
+                        <option value="../sqlite/">Driver: SQLite 🐢</option>
+                        <option value="../mysql/">Driver: MySQL 🐬</option>
+                        <option value="../postgresql/" selected>Driver: PostgreSQL 🐘</option>
+                        <option value="../redis/" disabled>Redis 📚️ (Em Breve)</option>
+                    </select>
+                    <a href="https://github.com/Pauloxc6/turtle" target="_blank" rel="noopener">GitHub ↗</a>
+                </div>
+            </div>
+        </header>
+
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <div class="layout">
+            <!-- Sidebar -->
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-header">
+                    <span>Navegação</span>
+                    <button class="close-sidebar-button" id="closeSidebar">✕</button>
+                </div>
+
+                <div class="search">
+                    <input type="search" id="searchInput" placeholder="Pesquisar..." />
+                    <div id="searchResults" class="search-results"></div>
+                </div>
+
+                <nav id="navigation">
+                    <div class="nav-group">
+                        <span class="sidebar-title">Getting Started</span>
+                        <a href="#overview">Overview</a>
+                        <a href="#quickstart">Quickstart</a>
+                        <a href="#debug">Debug</a>
+                    </div>
+
+                    <div class="nav-group">
+                        <span class="sidebar-title">Models</span>
+                        <a href="#tables">Tables</a>
+                        <a href="#fields">Fields</a>
+                        <a href="#relationships">Relationships</a>
+                    </div>
+
+                    <div class="nav-group">
+                        <span class="sidebar-title">Database</span>
+                        <a href="#insert">Insert</a>
+                        <a href="#update">Update</a>
+                        <a href="#select">Select</a>
+                        <a href="#get">Get</a>
+                        <a href="#queries">Queries</a>
+                        <a href="#delete">Delete</a>
+                    </div>
+
+                    <div class="nav-group">
+                        <span class="sidebar-title">Schema</span>
+                        <a href="#schema">Schema</a>
+                        <a href="#indexes">Indexes</a>
+                        <a href="#table-info">Table Info</a>
+                        <a href="#drop">Drop</a>
+                    </div>
+
+                    <div class="nav-group">
+                        <span class="sidebar-title">Reference</span>
+                        <a href="#api">API</a>
+                        <a href="#complete-example">Exemplo Completo</a>
+                        <a href="#dependencies">Dependências</a>
+                    </div>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="content">
+                <section id="overview" class="doc-section">
+                    <div class="hero-label">PostgreSQL DRIVER</div>
+                    <h1>Turtle ORM — PostgreSQL</h1>
+                    <p class="lead">Documentação do driver PostgreSQL para a biblioteca Turtle ORM em Bash.</p>
+                </section>
+
+                <section id="quickstart" class="doc-section">
+                    <div class="hero-label">GETTING STARTED</div>
+                    <h2>Quickstart</h2>
+                    <p>
+                        A biblioteca Turtle começa com um objeto <strong>Database</strong>, um <strong>Usuário</strong> e uma ou mais classe <strong>Model</strong>. O objeto
+                        <strong>Database</strong> gerencia o banco de dados, enquanto as funções <strong>Model</strong> são responsáveis pela definição das tabelas e seus campos.
+                    </p>
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>#!/usr/bin/env bash
+
+source "orm"
+source "dotenv"
+
+db="shop"
+
+ruser=$(dotenv:get "PSQL_ROOT_USER")
+rpass=$(dotenv:get "PSQL_ROOT_PASS")
+
+user=$(dotenv:get "PSQL_USER")
+pass=$(dotenv:get "PSQL_PASS")
+
+PostgresDatabase "${db}" "${user}" "${pass}" "${ruser}" "${rpass}"
+</code></pre>
+                    </div>
+
+                    <ul class="obs">
+                        <strong>Obs:</strong>
+                        <li>
+                            Por motivos de segurança, é recomendável a utilização de um arquivo dotenv para armazenar as credenciais. Como nota pessoal, recomendo a utilização de outra biblioteca
+                            <strong><a href="https://github.com/Pauloxc6/dotenv" target="_blank">Dotenv</a>.</strong>
+                        </li>
+                    </ul>
+                </section>
+
+                <section id="debug">
+                    <div class="hero-label">Debug</div>
+                    <h2>Ativar o Debug</h2>
+
+                    <p>É possível ativar o modo debug na importação do framework, utilizando o argumento <strong>--debug</strong>:</p>
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>source "orm" --debug</code></pre>
+                    </div>
+                </section>
+
+                <section id="tables" class="doc-section">
+                    <div class="hero-label">MODELS</div>
+                    <h2>Criação de tabelas</h2>
+                    <p>
+                        As tabelas são criadas utilizando <strong>PostgresDatabase:create</strong>. <br />
+                        Após a criação, <strong>BaseModel</strong> processa os Models e seus respectivos Fields. <br />
+                        Neste exemplo, será criado um pequeno esquema para uma loja, contendo clientes, produtos e pedidos.
+                    </p>
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>PostgresDatabase:create customers && BaseModel
+PostgresDatabase:create products && BaseModel
+PostgresDatabase:create orders && BaseModel</code></pre>
+                    </div>
+                </section>
+
+                <section id="fields" class="doc-section">
+                    <div class="hero-label">MODELS</div>
+                    <h2>Fields</h2>
+
+                    <p>
+                        Os campos são adicionados às tabelas através das funções <strong>Model:*Field</strong>. <br />
+                        O primeiro argumento representa a tabela e o segundo representa o nome da coluna. <br />
+                        Os campos também podem receber propriedades adicionais, como <strong>unique</strong> e <strong>notnull</strong>. <br />
+                    </p>
+
+                    <h3>TextField</h3>
+
+                    <p><strong>Model:TextField</strong> cria uma coluna do tipo <strong>TEXT</strong>.</p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>Model:TextField customers name && BaseModel
+Model:TextField customers email unique && BaseModel
+Model:TextField customers phone unique notnull && BaseModel</code></pre>
+                    </div>
+
+                    <h3>IntegerField</h3>
+
+                    <p><strong>Model:IntegerField</strong> cria uma coluna do tipo <strong>INTEGER</strong>.</p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>Model:IntegerField customers age && BaseModel
+Model:IntegerField products stock notnull && BaseModel</code></pre>
+                    </div>
+
+                    <h3>FloatField</h3>
+
+                    <p><strong>Model:FloatField</strong> cria uma coluna do tipo <strong>FLOAT</strong>.</p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>Model:FloatField products price notnull && BaseModel</code></pre>
+                    </div>
+
+                    <h3>BlobField</h3>
+
+                    <p><strong>Model:BlobField</strong> cria uma coluna do tipo <strong>BLOB</strong>.</p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>Model:BlobField products image && BaseModel</code></pre>
+                    </div>
+
+                    <h3>BooleanField</h3>
+
+                    <p><strong>Model:BooleanField</strong> cria uma coluna do tipo <strong>BOOLEAN</strong>.</p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>Model:BooleanField products productActive t && BaseModel</code></pre>
+                    </div>
+
+                    <ul class="obs">
+                        <li><strong>Obs:</strong> Para difinir um dado tipo boolean utilizamos o <strong>f</strong> para <strong>FALSE</strong> e <strong>t</strong> para <strong>TRUE</strong>.</li>
+                    </ul>
+
+                    <h3>DatetimeField</h3>
+
+                    <p><strong>Model:DatetimeField</strong> cria uma coluna do tipo <strong>DATETIME</strong>.</p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>Model:DatetimeField products timestamp && BaseModel</code></pre>
+                    </div>
+
+                    <p>É necessário a utilização da função interna de geração de data e hora. Pode ser utilizado o <strong>insert</strong> ou <strong>update</strong></p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>PostgresDatabase:update products timestamp "$(datetime "format=24")" 1</code></pre>
+                    </div>
+
+                    <ul class="obs">
+                        <li><strong>Obs:</strong> A saida da data pode ser altarada para 24 horas ou 12 horas, especificando com <strong>format=24</strong> ou <strong>format=12</strong>.</li>
+                    </ul>
+                </section>
+
+                <section id="relationships" class="doc-section">
+                    <div class="hero-label">MODELS</div>
+                    <p>A definição das tabelas pode ser combinada para representar uma estrutura mais próxima de uma aplicação real.</p>
+
+                    <h2>Foreign Keys</h2>
+
+                    <p>
+                        As chaves estrangeiras são definidas através de <strong>Model:ForeignKeyField</strong>. <br />
+                        Por padrão, as colunas <strong>id</strong> são configuradas como <strong>PRIMARY KEY</strong>. <strong>ForeignKeyField</strong> adiciona uma coluna que estabelece <br />
+                        uma referência entre duas tabelas.
+                    </p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>Model:ForeignKeyField orders customers</code></pre>
+                    </div>
+                </section>
+
+                <section id="insert" class="doc-section">
+                    <div class="hero-label">DATABASE</div>
+                    <h2>Insert</h2>
+
+                    <p>
+                        Os registros são inseridos utilizando <strong>PostgresDatabase:insert</strong>. <br />
+                        O primeiro argumento representa a tabela, o segundo representa a coluna e o terceiro representa o valor que será armazenado.
+                    </p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>PostgresDatabase:insert customers name "Paulo Santos"
+PostgresDatabase:insert customers email "paulo@example.com"</code></pre>
+                    </div>
+
+                    <ul class="obs">
+                        <li><strong>Obs:</strong> É recomendável que se utilize o <strong>insert</strong> para inserir o id e fazer as alterações com <strong>update</strong>. Ex:</li>
+                        <li>
+                            <div class="code-wrapper">
+                                <button class="copy-button">Copiar</button>
+                                <pre><code>idRandom=$(( RANDOM * 32768 + RANDOM ))
+PostgresDatabase:insert customers id "${idRandom}"
+PostgresDatabase:update customers name "Paulo Santos" "${idRandom}"</code></pre>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+
+                <section id="update" class="doc-section">
+                    <div class="hero-label">DATABASE</div>
+                    <h2>Update</h2>
+
+                    <p>
+                        Os registros existentes podem ser atualizados utilizando <strong>PostgresDatabase:update</strong>. <br />
+                        O último argumento representa o ID do registro que será atualizado.
+                    </p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>PostgresDatabase:update customers name "Paulo Cezar Santos" 1</code></pre>
+                    </div>
+                </section>
+
+                <section id="select" class="doc-section">
+                    <div class="hero-label">DATABASE</div>
+                    <h2>Select</h2>
+
+                    <p>Os registros de uma tabela podem ser consultados utilizando <strong>PostgresDatabase:select</strong>.</p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>PostgresDatabase:select customers &lt;csv&gt;
+PostgresDatabase:select products &lt;csv&gt;</code></pre>
+                    </div>
+
+                    <p>A saida pode ser modifca através de <strong>&lt;csv&gt;</strong> colocado no por último.</p>
+                </section>
+
+                <section id="get" class="doc-section">
+                    <div class="hero-label">DATABASE</div>
+                    <h2>Get</h2>
+
+                    <p>
+                        Os registros de um tabela podem ser consultados através pelo id, utilizando:
+                        <strong>PostgresDatabase:get</strong>
+                    </p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>PostgresDatabase:get customers 1 &lt;csv&gt;</code></pre>
+                    </div>
+
+                    <p>A saida pode ser modifca através de <strong>&lt;csv&gt;</strong> colocados no por último.</p>
+
+                    <ul class="obs">
+                        <li><strong>Obs:</strong> Por padrão o id é setado como 1 em caso de não expecificado.</li>
+                    </ul>
+                </section>
+
+                <!-- Queries Customizadas com correção de HTML (&lt;) -->
+                <section id="queries" class="doc-section">
+                    <div class="hero-label">DATABASE</div>
+                    <h2>Queries Customizadas</h2>
+
+                    <p>
+                        Consultas SQL personalizadas podem ser executadas utilizando <strong>PostgresDatabase:query</strong>. <br />
+                        A query pode ser passada diretamente para a função através de um Here Document.
+                    </p>
+
+                    <p>Para consultas SQL diretas, utilize a sintaxe Heredoc:</p>
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>PostgresDatabase:query &lt;&lt;SQL
+SELECT 
+    name, 
+    email 
+FROM 
+    customers 
+WHERE 
+    id = 1;
+SQL</code></pre>
+                    </div>
+
+                    <ul class="obs">
+                        <li><strong>Obs:</strong> A saida por padrão das queries customizadas é em formatada para <strong>&lt;csv&gt;</strong>.</li>
+                    </ul>
+                </section>
+
+                <section id="delete" class="doc-section">
+                    <div class="hero-label">DATABASE</div>
+                    <h2>Delete</h2>
+
+                    <p>
+                        Um registro pode ser removido utilizando <strong>PostgresDatabase:delete</strong>. <br />
+                        O segundo argumento representa o ID do registro que será removido.
+                    </p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>PostgresDatabase:delete customers 1</code></pre>
+                    </div>
+                </section>
+
+                <section id="schema" class="doc-section">
+                    <div class="hero-label">SCHEMA</div>
+                    <h2>Schema</h2>
+
+                    <p>O schema de uma tabela pode ser exibido utilizando <strong>PostgresDatabase:check schema</strong>.</p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>PostgresDatabase:check schema customers</code></pre>
+                    </div>
+
+                    <ul class="obs">
+                        <li><strong>Obs:</strong> A saida por padrão do check schema é em formatada para <strong>&lt;csv&gt;</strong>.</li>
+                    </ul>
+                </section>
+
+                <section id="indexes" class="doc-section">
+                    <div class="hero-label">SCHEMA</div>
+                    <h2>Indexes</h2>
+
+                    <p>Os índices associados a uma tabela podem ser consultados através de <strong>PostgresDatabase:check indexs</strong>.</p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>PostgresDatabase:check indexs customers
+PostgresDatabase:delete.index customers email</code></pre>
+                    </div>
+
+                    <ul class="obs">
+                        <li><strong>Obs:</strong> A saida por padrão do check indexs é em formatada para <strong>&lt;csv&gt;</strong>.</li>
+                    </ul>
+                </section>
+
+                <section id="table-info" class="doc-section">
+                    <div class="hero-label">SCHEMA</div>
+                    <h2>Table Info</h2>
+
+                    <p>As informações estruturais das colunas podem ser consultadas através de <strong>PostgresDatabase:check table-info</strong>.</p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>PostgresDatabase:check table-info customers</code></pre>
+                    </div>
+
+                    <ul class="obs">
+                        <li><strong>Obs:</strong> A saída por padrão do check table-info é em formatada para <strong>&lt;csv&gt;</strong>.</li>
+                    </ul>
+                </section>
+
+                <section id="drop" class="doc-section">
+                    <div class="hero-label">SCHEMA</div>
+                    <h2>Drop</h2>
+
+                    <p>Uma tabela pode ser removida utilizando <strong>PostgresDatabase:drop</strong>.</p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>PostgresDatabase:drop "customers"</code></pre>
+                    </div>
+
+                    <p>Um banco de dados pode ser removido utilizando <strong>PostgresDatabase:drop.database</strong>.</p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>PostgresDatabase:drop.database "${db}"</code></pre>
+                    </div>
+
+                    <p>Um usuário pode ser removido utilizando <strong>PostgresDatabase:drop.user</strong>.</p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>PostgresDatabase:drop.user "${user}"</code></pre>
+                    </div>
+                </section>
+
+                <section id="api" class="doc-section">
+                    <div class="hero-label">REFERENCE</div>
+                    <h2>API Reference</h2>
+
+                    <p></p>
+
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Módulo</th>
+                                    <th>Função</th>
+                                    <th>Descrição</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>PostgresDatabase</td>
+                                    <td>create, insert, update, select, query, delete, readall, drop</td>
+                                    <td>Gera comandos SQL e operações na base PostgreSQL.</td>
+                                </tr>
+                                <tr>
+                                    <td>Model</td>
+                                    <td>TextField, IntegerField, FloatField, BlobField, BooleanField, DatetimeField, ForeignKeyField</td>
+                                    <td>Declara tipos de dados e relacionamentos.</td>
+                                </tr>
+                                <tr>
+                                    <td>BaseModel</td>
+                                    <td>BaseModel</td>
+                                    <td>Aplica as alterações declaradas no schema.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section id="complete-example" class="doc-section">
+                    <div class="hero-label">EXAMPLE</div>
+                    <h2>Exemplo Completo</h2>
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>PostgresDatabase:create customers && BaseModel
+Model:TextField customers name notnull && BaseModel
+Model:TextField customers email unique notnull && BaseModel
+Model:TextField customers phone unique && BaseModel
+Model:DatetimeField timestamp format=24 && BaseModel
+
+PostgresDatabase:create products && BaseModel
+Model:TextField products name notnull && BaseModel
+Model:FloatField products price notnull && BaseModel
+Model:IntegerField products stock notnull && BaseModel
+Model:BlobField products image && BaseModel
+Model:DatetimeField timestamp format=24 && BaseModel
+
+PostgresDatabase:create orders && BaseModel
+Model:IntegerField orders quantity notnull && BaseModel
+Model:FloatField orders total notnull && BaseModel
+Model:DatetimeField timestamp format=24 && BaseModel</code></pre>
+                    </div>
+                </section>
+
+                <section id="dependencies" class="doc-section">
+                    <div class="hero-label">DEPENDENCIES</div>
+                    <h2>Depedências</h2>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>psql -> psql (PostgreSQL) 18.6 | psql é o terminal interativo do PostgreSQL.</code></pre>
+                    </div>
+                </section>
+
+                <!-- Banner de Consentimento de Cookies -->
+                <div id="cookie-banner" class="cookie-banner" style="display: none">
+                    <div class="cookie-content">
+                        <p>
+                            Utilizamos cookies de análise (Google Analytics) para melhorar a documentação. Você pode aceitar ou recusar o rastreamento.
+                            <a href="./privacidade.html">Saiba mais</a>.
+                        </p>
+                        <div class="cookie-buttons">
+                            <button id="cookie-reject" class="btn-cookie btn-reject">Recusar</button>
+                            <button id="cookie-accept" class="btn-cookie btn-accept">Aceitar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <footer>
+                    <span>Turtle ORM — Documentação</span>
+                    <span>•</span>
+                    <span>Built with Linux &lt;3 @2026</span>
+
+                    <div class="footer-links">
+                        <a href="../termos.html">Termos de Uso</a>
+                        <a href="../privacidade.html">Política de Privacidade</a>
+                    </div>
+                </footer>
+            </main>
+        </div>
+
+        <!-- Main Script-->
+        <script src="../assets/script.js"></script>
+        <script src="../assets/cookies.js"></script>
+
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M9ZHT7QP" height="0" width="0" style="display: none; visibility: hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
+    </body>
+</html>

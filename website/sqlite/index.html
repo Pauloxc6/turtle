@@ -59,14 +59,16 @@
                     <button class="menu-button" id="menuButton" aria-label="Abrir Menu">☰</button>
                     <div class="brand-icon">🐢</div>
                     <a href="../index.html">Turtle ORM</a>
-                    <span class="badge">v2.2</span>
+                    <span class="badge">v3.0</span>
                 </div>
 
                 <div class="header-controls">
                     <select class="driver-select" onchange="location = this.value;">
+                        <option value="" selected disabled>Escolha um Driver</option>
                         <option value="../sqlite/" selected>Driver: SQLite 🐢</option>
                         <option value="../mysql/">Driver: MySQL 🐬</option>
-                        <option value="../postgres/">Driver: PostgreSQL 🐘 (Em breve)</option>
+                        <option value="../postgresql/">Driver: PostgreSQL 🐘</option>
+                        <option value="../redis/" disabled>Redis 📚️ (Em Breve)</option>
                     </select>
                     <a href="https://github.com/Pauloxc6/turtle" target="_blank" rel="noopener">GitHub ↗</a>
                 </div>
@@ -108,6 +110,7 @@
                         <a href="#insert">Insert</a>
                         <a href="#update">Update</a>
                         <a href="#select">Select</a>
+                        <a href="#get">Get</a>
                         <a href="#queries">Queries</a>
                         <a href="#delete">Delete</a>
                     </div>
@@ -141,14 +144,14 @@
                     <div class="hero-label">GETTING STARTED</div>
                     <h2>Quickstart</h2>
                     <p>
-                        A biblioteca Turtle começa com um objeto <strong>Database</strong> e uma ou mais classe <strong>Model</strong>. O objeto <strong>Database</strong>gerencia o banco de dados,
+                        A biblioteca Turtle começa com um objeto <strong>Database</strong> e uma ou mais classe <strong>Model</strong>. O objeto <strong>Database</strong> gerencia o banco de dados,
                         enquanto as funções <strong>Model</strong> são responsáveis pela definição das tabelas e seus campos.
                     </p>
                     <div class="code-wrapper">
                         <button class="copy-button">Copiar</button>
                         <pre><code>#!/usr/bin/env bash
 
-source "/home/$USER/.local/share/turtle/orm.sh"
+source "orm"
 
 db="shop"
 SqliteDatabase "${db}"</code></pre>
@@ -162,7 +165,7 @@ SqliteDatabase "${db}"</code></pre>
                     <p>É possível ativar o modo debug na importação do framework, utilizando o argumento <strong>--debug</strong>:</p>
                     <div class="code-wrapper">
                         <button class="copy-button">Copiar</button>
-                        <pre><code>source "/home/$USER/.local/share/turtle/orm.sh" --debug</code></pre>
+                        <pre><code>source "orm" --debug</code></pre>
                     </div>
                 </section>
 
@@ -187,48 +190,48 @@ SqliteDatabase:create orders && BaseModel</code></pre>
                     <h2>Fields</h2>
 
                     <p>
-                        Os campos são adicionados às tabelas através das funções <strong>Model:*Filed</strong>. <br />
+                        Os campos são adicionados às tabelas através das funções <strong>Model:*Field</strong>. <br />
                         O primeiro argumento representa a tabela e o segundo representa o nome da coluna. <br />
                         Os campos também podem receber propriedades adicionais, como <strong>unique</strong> e <strong>notnull</strong>. <br />
                     </p>
 
                     <h3>TextField</h3>
 
-                    <p><strong>Model:TextFiled</strong> cria uma coluna do tipo <strong>TEXT</strong>.</p>
+                    <p><strong>Model:TextField</strong> cria uma coluna do tipo <strong>TEXT</strong>.</p>
 
                     <div class="code-wrapper">
                         <button class="copy-button">Copiar</button>
-                        <pre><code>Model:TextFiled customers name && BaseModel
-Model:TextFiled customers email unique && BaseModel
-Model:TextFiled customers phone unique notnull && BaseModel</code></pre>
+                        <pre><code>Model:TextField customers name && BaseModel
+Model:TextField customers email unique && BaseModel
+Model:TextField customers phone unique notnull && BaseModel</code></pre>
                     </div>
 
                     <h3>IntegerField</h3>
 
-                    <p><strong>Model:IntegerFiled</strong> cria uma coluna do tipo <strong>INTEGER</strong>.</p>
+                    <p><strong>Model:IntegerField</strong> cria uma coluna do tipo <strong>INTEGER</strong>.</p>
 
                     <div class="code-wrapper">
                         <button class="copy-button">Copiar</button>
-                        <pre><code>Model:IntegerFiled customers age && BaseModel
-Model:IntegerFiled products stock notnull && BaseModel</code></pre>
+                        <pre><code>Model:IntegerField customers age && BaseModel
+Model:IntegerField products stock notnull && BaseModel</code></pre>
                     </div>
 
                     <h3>RealField</h3>
 
-                    <p><strong>Model:RealFiled</strong> cria uma coluna do tipo <strong>REAL</strong>.</p>
+                    <p><strong>Model:RealField</strong> cria uma coluna do tipo <strong>REAL</strong>.</p>
 
                     <div class="code-wrapper">
                         <button class="copy-button">Copiar</button>
-                        <pre><code>Model:RealFiled products price notnull && BaseModel</code></pre>
+                        <pre><code>Model:RealField products price notnull && BaseModel</code></pre>
                     </div>
 
                     <h3>BlobField</h3>
 
-                    <p><strong>Model:BlobFiled</strong> cria uma coluna do tipo <strong>BLOB</strong>.</p>
+                    <p><strong>Model:BlobField</strong> cria uma coluna do tipo <strong>BLOB</strong>.</p>
 
                     <div class="code-wrapper">
                         <button class="copy-button">Copiar</button>
-                        <pre><code>Model:BlobFiled products image && BaseModel</code></pre>
+                        <pre><code>Model:BlobField products image && BaseModel</code></pre>
                     </div>
                 </section>
 
@@ -264,6 +267,18 @@ Model:IntegerFiled products stock notnull && BaseModel</code></pre>
                         <pre><code>SqliteDatabase:insert customers name "Paulo Santos"
 SqliteDatabase:insert customers email "paulo@example.com"</code></pre>
                     </div>
+
+                    <ul class="obs">
+                        <li><strong>Obs:</strong> É recomendável que se utilize o <strong>insert</strong> para inserir o id e fazer as alterações com <strong>update</strong>. Ex:</li>
+                        <li>
+                            <div class="code-wrapper">
+                                <button class="copy-button">Copiar</button>
+                                <pre><code>idRandom=$(( RANDOM * 32768 + RANDOM ))
+SqliteDatabase:insert customers id "${idRandom}"
+SqliteDatabase:update customers name "Paulo Santos" "${idRandom}"</code></pre>
+                            </div>
+                        </li>
+                    </ul>
                 </section>
 
                 <section id="update" class="doc-section">
@@ -410,6 +425,13 @@ SqliteDatabase:delete.index customers email &lt;json,box,csv&gt;</code></pre>
                         <button class="copy-button">Copiar</button>
                         <pre><code>SqliteDatabase:drop "customers"</code></pre>
                     </div>
+
+                    <p>Um banco de dados pode ser removido utilizando <strong>SqliteDatabase:drop.database</strong>.</p>
+
+                    <div class="code-wrapper">
+                        <button class="copy-button">Copiar</button>
+                        <pre><code>SqliteDatabase:drop.database "${db}"</code></pre>
+                    </div>
                 </section>
 
                 <section id="api" class="doc-section">
@@ -435,7 +457,7 @@ SqliteDatabase:delete.index customers email &lt;json,box,csv&gt;</code></pre>
                                 </tr>
                                 <tr>
                                     <td>Model</td>
-                                    <td>TextFiled, IntegerFiled, RealFiled, BlobFiled, ForeignKeyField</td>
+                                    <td>TextField, IntegerField, RealField, BlobField, ForeignKeyField</td>
                                     <td>Declara tipos de dados e relacionamentos.</td>
                                 </tr>
                                 <tr>
@@ -454,19 +476,19 @@ SqliteDatabase:delete.index customers email &lt;json,box,csv&gt;</code></pre>
                     <div class="code-wrapper">
                         <button class="copy-button">Copiar</button>
                         <pre><code>SqliteDatabase:create customers && BaseModel
-Model:TextFiled customers name notnull && BaseModel
-Model:TextFiled customers email unique notnull && BaseModel
-Model:TextFiled customers phone unique && BaseModel
+Model:TextField customers name notnull && BaseModel
+Model:TextField customers email unique notnull && BaseModel
+Model:TextField customers phone unique && BaseModel
 
 SqliteDatabase:create products && BaseModel
-Model:TextFiled products name notnull && BaseModel
-Model:RealFiled products price notnull && BaseModel
-Model:IntegerFiled products stock notnull && BaseModel
-Model:BlobFiled products image && BaseModel
+Model:TextField products name notnull && BaseModel
+Model:RealField products price notnull && BaseModel
+Model:IntegerField products stock notnull && BaseModel
+Model:BlobField products image && BaseModel
 
 SqliteDatabase:create orders && BaseModel
-Model:IntegerFiled orders quantity notnull && BaseModel
-Model:RealFiled orders total notnull && BaseModel</code></pre>
+Model:IntegerField orders quantity notnull && BaseModel
+Model:RealField orders total notnull && BaseModel</code></pre>
                     </div>
                 </section>
 

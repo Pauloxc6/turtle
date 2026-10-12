@@ -107,15 +107,16 @@
                 <div class="brand">
                     <div class="brand-icon">🐢</div>
                     <a href="index.html">Turtle ORM</a>
-                    <span class="badge">v2.2</span>
+                    <span class="badge">v3.0</span>
                 </div>
 
                 <div class="header-controls">
                     <select class="driver-select" onchange="if(this.value) location = this.value;">
                         <option value="" selected disabled>Escolha um Driver</option>
-                        <option value="sqlite/">SQLite 🐢 (v2.0)</option>
-                        <option value="mysql/">MySQL 🐬 (v2.0)</option>
-                        <option value="postgres/" disabled>PostgreSQL 🐘 (Em breve)</option>
+                        <option value="sqlite/">SQLite 🐢 (v3.0)</option>
+                        <option value="mysql/">MySQL 🐬 (v3.0)</option>
+                        <option value="postgres/">PostgreSQL 🐘 (v3.0)</option>
+                        <option value="redis/" disabled>Redis 📚️ (Em Breve)</option>
                     </select>
                     <a href="https://github.com/Pauloxc6/turtle" target="_blank" rel="noopener">GitHub ↗</a>
                 </div>
@@ -130,7 +131,6 @@
                     <h1>Turtle ORM</h1>
                     <p class="lead">Manipule bancos de dados em scripts Shell com sintaxe limpa, declaração de schemas, e queries customizadas baseadas em funções.</p>
                     <div style="display: flex; gap: 12px; justify-content: center">
-                        <a href="sqlite/" class="button primary">Documentação SQLite 🐢</a>
                         <a href="https://github.com/Pauloxc6/turtle" target="_blank" rel="noopener" class="button">Ver no GitHub ↗</a>
                     </div>
                 </section>
@@ -163,18 +163,27 @@
                                     MySQL 🐬
                                     <span class="badge" style="background: rgba(46, 160, 67, 0.15); color: #3fb950">Disponível</span>
                                 </h3>
-                                <p>Driver completo e nativo utilizando o binário <code>mysql</code> em Shell.</p>
+                                <p>Driver completo e nativo utilizando o binário <code>mariadb</code> em Shell.</p>
                             </div>
                             <a href="mysql/" class="button primary" style="text-align: center; justify-content: center">Acessar Docs</a>
                         </div>
 
                         <!-- PostgreSQL -->
+                        <div class="driver-card">
+                            <div>
+                                <h3>PostgreSQL 🐘 <span class="badge" style="background: rgba(46, 160, 67, 0.15); color: #3fb950">Disponível</span></h3>
+                                <p>Driver completo e nativo utilizando o binário <code>psql</code> em shell.</p>
+                            </div>
+                            <a href="postgresql/" class="button primary" style="text-align: center; justify-content: center">Acessar Docs</a>
+                        </div>
+
+                        <!-- Redis -->
                         <div class="driver-card" style="opacity: 0.6">
                             <div>
-                                <h3>PostgreSQL 🐘 <span class="badge">Em breve</span></h3>
+                                <h3>Redis 📚️ <span class="badge">Em breve</span></h3>
                                 <p>
                                     Suporte planejado com integração ao utilitário
-                                    <code>psql</code>.
+                                    <code>redis-cli</code>.
                                 </p>
                             </div>
                             <button class="button" disabled style="width: 100%; cursor: not-allowed">Em Desenvolvimento</button>
@@ -201,7 +210,7 @@ user@db:~/turtle$ orm --version
 |_________/     
 |_|_| |_|_|
 
-Turtle ORM | V: v2.2
+Turtle ORM | V: v3.0
 By: @Pauloxc6
 
 # Importa a biblioteca no seu script Bash
