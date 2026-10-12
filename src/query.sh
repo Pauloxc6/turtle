@@ -30,3 +30,17 @@ function MysqlDatabase:query(){
         return 1
     fi
 }
+
+function PostgresDatabase:query(){
+    
+    local query=$(cat)
+
+    if [[ -z "${query}" ]]; then
+        echo "[!] Query inválido"
+        return 1
+    fi
+
+    if !  PGPASSWORD="${pass}" psql --csv -h "${postgresql_host}" -U "${user}" -d "${pdatabase_name}" -c "${query}" 2>/dev/null;then
+        return 1
+    fi
+}

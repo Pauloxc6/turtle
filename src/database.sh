@@ -3,6 +3,7 @@
 declare -a database_import=(
     "${rootdir}/src/database/sqlite.sh"
     "${rootdir}/src/database/mysql.sh"
+    "${rootdir}/src/database/postgresql.sh"
 )
 
 for dblib in "${database_import[@]}";do

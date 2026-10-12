@@ -31,7 +31,7 @@ function __version_banner(){
 |_________/     
 |_|_| |_|_|
 
-Turtle ORM | V: v2.2
+Turtle ORM | V: v3.0
 By: @Pauloxc6
 EOF
 
@@ -85,7 +85,15 @@ function datetime(){
 
     local type="$1"
 
-    case "${type}" in
+    # format=24
+    local formated=$( echo "$1" | awk -F'=' '{print $1}' )
+    local hour=$( echo "$1" | awk -F'=' '{print $2}' )
+
+    if [[ "${formated}" != "format" ]]; then
+        return 1
+    fi
+
+    case "${hour}" in
         24) date +"%F %T"       ;;
         12) date +"%F %I:%M:%S" ;;
     esac 
@@ -106,5 +114,4 @@ function xmltojson(){
         | add
     ]'
 }
-
 

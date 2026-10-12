@@ -327,7 +327,7 @@ function MysqlDatabase:get(){
     local table="$1"
     local where="${2:-1}"
     local type="${3}"
-    local cmd="USE ${mdatabase_name}; SELECT * FROM ${table} WHERE ${where};"
+    local cmd="USE ${mdatabase_name}; SELECT * FROM ${table} WHERE id = ${where};"
 
     if [[ -z "$table" || -z "$where" ]]; then
         echo "[!] Argumento vazio. Adicione a tabela e coluna para seleção!"

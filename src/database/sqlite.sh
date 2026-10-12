@@ -99,6 +99,27 @@ function SqliteDatabase:drop(){
 
 }
 
+# * Apaga um banco de dados
+function SqliteDatabase:drop.database(){
+
+    if [[ -z "${1}" ]]; then
+        echo "[!] Argumento vazio. Adicione o nome da banco de dados para remover!"
+        return 1
+    fi
+
+    local data="$1"
+
+    if [[ ! "$data" =~ ^[a-zA-Z_][a-zA-Z0-9_]*$ ]]; then
+        echo "[!] Nome de tabela inválido"
+        return 1
+    fi
+
+    if ! rm "${data}.db";then
+        echo "[!] Não foi possivel excluir ${data}.db!" && return 1
+    fi
+
+}
+
 # * Remove um índice
 function SqliteDatabase:delete.index(){
 
@@ -167,7 +188,6 @@ function SqliteDatabase:insert() {
         echo "[!] Dados incorretos"
         return 1
     fi
-
 
     # * Escapa apóstrofos para um literal de string do SQLite
     local escaped_value="${value//\'/\'\'}"
@@ -264,7 +284,7 @@ function SqliteDatabase:get(){
     local table="$1"
     local where="${2:-1}"
     local type="${3:-json}"
-    local cmd="SELECT * FROM ${table} WHERE ${where};"
+    local cmd="SELECT * FROM ${table} WHERE id = ${where};"
 
     if [[ -z "$table" || -z "$where" ]]; then
         echo "[!] Argumento vazio. Adicione a tabela e coluna para seleção!"
