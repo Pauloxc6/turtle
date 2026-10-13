@@ -546,19 +546,19 @@ PostgresDatabase:delete.index customers email</code></pre>
 Model:TextField customers name notnull && BaseModel
 Model:TextField customers email unique notnull && BaseModel
 Model:TextField customers phone unique && BaseModel
-Model:DatetimeField timestamp format=24 && BaseModel
+Model:DatetimeField timestamp && BaseModel
 
 PostgresDatabase:create products && BaseModel
 Model:TextField products name notnull && BaseModel
 Model:FloatField products price notnull && BaseModel
 Model:IntegerField products stock notnull && BaseModel
 Model:BlobField products image && BaseModel
-Model:DatetimeField timestamp format=24 && BaseModel
+Model:DatetimeField timestamp && BaseModel
 
 PostgresDatabase:create orders && BaseModel
 Model:IntegerField orders quantity notnull && BaseModel
 Model:FloatField orders total notnull && BaseModel
-Model:DatetimeField timestamp format=24 && BaseModel</code></pre>
+Model:DatetimeField timestamp && BaseModel</code></pre>
                     </div>
                 </section>
 
